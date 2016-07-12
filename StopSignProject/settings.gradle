@@ -1,1 +1,2 @@
 include ':app', ':stopsignlib'
+include ':openCVLibrary2482'
