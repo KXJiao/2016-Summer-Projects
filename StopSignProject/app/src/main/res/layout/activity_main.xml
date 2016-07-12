@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
+        android:text="Settings"
         android:id="@+id/textView"
         android:layout_marginTop="22dp"
         android:layout_alignParentTop="true"
@@ -57,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
+        android:text="Recording Options"
         android:id="@+id/textView2"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
@@ -69,27 +69,29 @@
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
         android:id="@+id/linearLayout">
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New RadioButton"
-            android:id="@+id/radioButton"
-            android:layout_gravity="center_horizontal" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New RadioButton"
-            android:id="@+id/radioButton2"
-            android:layout_gravity="center_horizontal" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New RadioButton"
-            android:id="@+id/radioButton3"
-            android:layout_gravity="center_horizontal" />
-
+        <RadioGroup
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Record All Vehicles"
+                android:id="@+id/radioButton"
+                android:layout_gravity="center_horizontal" />
+    
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Record Only Violations"
+                android:id="@+id/radioButton2"
+                android:layout_gravity="center_horizontal" />
+    
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Record Non-Stopping Vehicles"
+                android:id="@+id/radioButton3"
+                android:layout_gravity="center_horizontal" />
+        </RadioGroup>
     </LinearLayout>
 </RelativeLayout>
