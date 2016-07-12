@@ -14,6 +14,13 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button vidb = (Button) findViewById(R.id.vidbutton);
+        Button data = (Button) findViewById(R.id.databutton);
+        data.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                openData(view);
+            }
+        });
     }
 
     public void openVideo(View v){
@@ -24,5 +31,11 @@ public class Main extends AppCompatActivity {
     public void openData(View v){
         Intent intent = new Intent(this, Data.class);
         startActivity(intent);
+        finish();
+    }
+    
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+
     }
 }
