@@ -6,4 +6,5 @@
     <string name="start_video">Start Video</string>
     <string name="title_activity_video">Video</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_main">Main</string>
 </resources>

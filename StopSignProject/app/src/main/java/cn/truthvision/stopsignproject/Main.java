@@ -14,7 +14,6 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button vidb = (Button) findViewById(R.id.vidbutton);
-<<<<<<< HEAD
         vidb.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 openVideo(v);
@@ -31,12 +30,11 @@ public class Main extends AppCompatActivity {
         Button mapb = (Button) findViewById(R.id.cloudbutton);
         mapb.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
-                openMap(v);
+
             }
         });
 
 
-=======
         Button data = (Button) findViewById(R.id.databutton);
         data.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -44,7 +42,6 @@ public class Main extends AppCompatActivity {
                 openData(view);
             }
         });
->>>>>>> origin/master
     }
 
 
@@ -58,14 +55,11 @@ public class Main extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-    
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
 
     }
 
-    public void openMap(View v){
-        Intent intent = new Intent(this, MapsActivity.class);
-        startActivity(intent);
-    }
+
 }

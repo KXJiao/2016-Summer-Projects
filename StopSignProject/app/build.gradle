@@ -10,10 +10,11 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -25,5 +26,8 @@ dependencies {
     compile project(":stopsignlib")
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'com.android.support:design:24.0.0'
-    compile 'com.google.android.gms:play-services:9.2.1'
+//    compile 'com.google.android.gms:play-services:9.2.1'
+//    compile 'com.google.android.gms:play-services-ads:9.2.1'
+//    compile 'com.google.android.gms:play-services-auth:9.2.1'
+//    compile 'com.google.android.gms:play-services-gcm:9.2.1'
 }
