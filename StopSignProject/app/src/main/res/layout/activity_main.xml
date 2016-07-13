@@ -10,11 +10,20 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="cn.truthvision.stopsignproject.Main">
 
-    <Button
+    <!--<Button
         android:layout_width="125dp"
         android:layout_height="40dp"
         android:text="@string/start_video"
         android:id="@+id/startbutton"
+        android:layout_alignTop="@+id/cloudbutton"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_marginEnd="46dp" />-->
+    
+    <Button
+        android:layout_width="125dp"
+        android:layout_height="40dp"
+        android:text="@string/home_button"
+        android:id="@+id/homebutton"
         android:layout_alignTop="@+id/cloudbutton"
         android:layout_alignEnd="@+id/textView"
         android:layout_marginEnd="46dp" />
@@ -49,9 +58,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Settings"
         android:id="@+id/textView"
-        android:layout_marginTop="24dp"
+        android:layout_centerHorizontal="true"
+        />
+       <!-- android:layout_marginTop="24dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true" />-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -91,6 +102,40 @@
                 android:layout_height="wrap_content"
                 android:text="Record Non-Stopping Vehicles"
                 android:id="@+id/radioButton3"
+                android:layout_gravity="center_horizontal" />
+        </RadioGroup>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Saving Options"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout2">
+        <RadioGroup
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add to Database"
+                android:id="@+id/adddatabase"
+                android:layout_gravity="center_horizontal" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Real-Time"
+                android:id="@+id/realtime"
                 android:layout_gravity="center_horizontal" />
         </RadioGroup>
     </LinearLayout>
