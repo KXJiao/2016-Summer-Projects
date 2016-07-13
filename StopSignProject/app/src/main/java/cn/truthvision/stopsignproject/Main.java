@@ -34,13 +34,13 @@ public class Main extends AppCompatActivity {
             }
         });
         
-        Button home = (Button) findViewById(R.id.homebutton);
+        /*Button home = (Button) findViewById(R.id.homebutton);
         home.setOnClickListener(new View.OnClickListener(){
            @Override
             public void onClick(View view){
                openHome(view);
            }
-        });
+        });*/
 
 
         Button data = (Button) findViewById(R.id.databutton);
@@ -52,11 +52,11 @@ public class Main extends AppCompatActivity {
         });
     }
     
-    public void openHome(View v){
+    /*public void openHome(View v){
         Intent intent = new Intent(this, Home.class);
         startActivity(intent);
         //finish();
-    }
+    }*/
 
     public void openVideo(View v){
         Intent intent = new Intent(this, Video.class);
