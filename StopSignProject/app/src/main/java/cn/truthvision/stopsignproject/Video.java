@@ -18,7 +18,28 @@ public class Video extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Intent i = getIntent();
-
+        
+        Button settings = (Button) findViewById(R.id.settingsbutton2);
+        settings.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                onSettings(view);
+            }
+        });
+        Button data = (Button) findViewById(R.id.data);
+        data.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                onData(view);
+            }
+        });
+        Button start_recording = (Button) findViewById(R.id.start_recording);
+        start_recording.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                onStartRecording(view);
+            }
+        });
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,6 +48,22 @@ public class Video extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+    
+    public void onSettings(View view){
+        Intent intent = new Intent(this, Main.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void onStartRecording(View view){
+
+    }
+
+    public void onData(View view){
+        Intent intent = new Intent(this, Data.class);
+        startActivity(intent);
+        finish();
     }
 
 }
