@@ -7,12 +7,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Placeholder text: splash screen"
-        android:id="@+id/textView3"
-        android:layout_gravity="center_horizontal" />
+        android:id="@+id/textView3" />
 
     <ImageView android:id="@+id/splashscreen" android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:src="@drawable/camstop" />
         <!--android:src="@drawable/splash"-->
 
 
