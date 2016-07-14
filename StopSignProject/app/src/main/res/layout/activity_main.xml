@@ -77,8 +77,8 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="300px"
+        android:layout_width="225dp"
+        android:layout_height="150dp"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
         android:id="@+id/linearLayout">
@@ -90,14 +90,15 @@
                 android:layout_height="wrap_content"
                 android:text="Record All Vehicles"
                 android:id="@+id/radioButton"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal|left"
+                android:checked="true" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Record Only Violations"
                 android:id="@+id/radioButton2"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal|left" />
 
             <RadioButton
                 android:layout_width="wrap_content"
@@ -118,7 +119,7 @@
         />
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="match_parent"
+        android:layout_width="220dp"
         android:layout_height="150dp"
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
@@ -131,14 +132,15 @@
                 android:layout_height="wrap_content"
                 android:text="Add to Database"
                 android:id="@+id/adddatabase"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal|left"
+                android:checked="true" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Real-Time"
                 android:id="@+id/realtime"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal|left" />
         </RadioGroup>
     </LinearLayout>
 
