@@ -1,23 +1,23 @@
-# Stop-Sign-Project
+# 2016-Summer-Projects
 2016 Summer
 
-Setting up the coding environment: 
+##Setting up the coding environment: 
 
-Required Software and Resources:
+###Required Software and Resources:
 
-Option 1: Download these components separately
+####Option 1: Download these components separately
 
-	1. Android Studio with Android SDK Manager OR Eclipse IDE
+	i. Android Studio with Android SDK Manager OR Eclipse IDE
 	
-	2. Java SE Development Kit
+	ii. Java SE Development Kit
 	
-	3. ADT (Android Developer Tools) and CDT (C/C++ Development Tool) plugins, if Eclipse is your IDE
+	iii. ADT (Android Developer Tools) and CDT (C/C++ Development Tool) plugins, if Eclipse is your IDE
 	
-	4. Android NDK
+	iv. Android NDK
 
-	5. OpenCV Library
+	v. OpenCV Library
 	
-Option 2: Download the Tegra Android Development Pack
+####Option 2: Download the Tegra Android Development Pack
 	
 	1. Register for free membership on NVIDIA website 
 	
@@ -61,7 +61,19 @@ Option 2: Download the Tegra Android Development Pack
 	
 	4. Post-Installation Configuration
 	
-		1. Installing Emulator System Images
+		1. Installing Emulator System Images:
+		
+			1. Navigate to the "NVPACK" directory that you specified on installation
+			
+			2. Open the "android-sdk-windows" directory
+			
+			3. Run the SDK Manager
+			
+			4. For every installed Android X.X (ex. Android 4.4.2), select the system images ("ARM EABI v7a System Image", "Intel x86 Atom_64 System Image", "Intel x86 Atom System Image"), the Google APIs, and the Google APIs for each image.
+			
+			5. Click "Install Packages"
+			
+			6. Accept the license agreements and click "Install"
 		
 		2. Configuring Eclipse with NDK
 		
