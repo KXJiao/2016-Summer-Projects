@@ -13,7 +13,23 @@ ii. Java SE Development Kit (http://www.oracle.com/technetwork/java/javase/downl
 	
 iii. ADT (Android Developer Tools) and CDT (C/C++ Development Tool) plugins, if Eclipse is your IDE:
 		
-	1. 
+	1. Navigate to "Help" -> "Install New Software"
+	
+	2. Click the "Add" button, found in the top right next to the input field
+	
+	3. In the "Add Respository" window, input "ADT Plug-In" in "Name" and https://dl-ssl.google.com/android/eclipse/ in "Location"
+	
+	4. Click "OK"
+	
+	5. Check the "Developer Tools" checkbox
+	
+	6. Click "Next"
+	
+	7. Ensure that the Native Support Tools plug-in is included in the list of tools shown and click "Next"
+	
+	8. Accept the License Agreement and click "Finish"
+	
+	9. After installation is completed, restart Eclipse 
 	
 iv. Android NDK (http://developer.android.com/tools/sdk/ndk/index.html)
 
@@ -111,6 +127,8 @@ v. OpenCV Library (http://sourceforge.net/projects/opencvlibrary/files/opencv-an
 			7. Right-click on the "hello-jni" project, navigate to "Run As" -> "Android Application"
 		
 				1. You may encounter this error: "Unsupported major.minor version 52.0"
+				
+				2. Unfortunately, as of now we have not been able to resolve the above error. 
 	
 Figure 1.0:
 ![instruction2](https://cloud.githubusercontent.com/assets/9889325/16841575/d4503f36-49a7-11e6-8a5d-daa76ef46b32.PNG)
@@ -271,10 +289,46 @@ Figure 1.1:
 		    }
 		    
   xvii. Now you are ready to run the app on an emulator!
-    		
+  
+  
+###Important Notes:
+
+The following code snippet should be used in all projects that implement OpenCV algorithms:
     
         	
-		
+	private static final String TAG = "HelloVisionWorld";
+    		private CameraBridgeViewBase mOpenCvCameraView;
+    		private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this){
+        		@Override
+        		public void onManagerConnected(int status){
+            			switch(status){
+                			case LoaderCallbackInterface.SUCCESS:{
+                    				Log.i(TAG, "OpenCV loaded successfully");
+                    				mOpenCvCameraView.enableView();
+                    				break;
+                			}
+                			default:{
+                    			super.onManagerConnected(status);
+                    			break;
+                			}
+            			}
+        		}
+    		};	
+    	
+    	@Override //overrides the onResume() function found in the parent class AppCompatActivity	
+    	public void onResume(){
+        		super.onResume();
+        		OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_8, this, mLoaderCallback);
+    		}
+
+
+This code is crucial because it reduces the memory footprint of an activity by loading the OpenCV library asynchronously using the OpenCV manager service. 
+
+If the change indicated in step xii is not made, the following runtime error will result:
+	
+	java.lang.IllegalArgumentException: Service Intent must be explicit
+	
+
 
 
 
