@@ -19,6 +19,10 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import cn.truthvision.stopsignlib.VideoManager;
 
 public class Video extends AppCompatActivity {
+
+    private int RecOptions;
+    private int SaveOptions;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +31,9 @@ public class Video extends AppCompatActivity {
         //setSupportActionBar(toolbar);
 
         Intent i = getIntent();
+
+        RecOptions = i.getIntExtra("Record", 1);
+        SaveOptions = i.getIntExtra("Save", 1);
 
         Button settings = (Button) findViewById(R.id.settingsbutton2);
         settings.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +77,8 @@ public class Video extends AppCompatActivity {
 
     public void onStartRecording(View view) {
         Intent i = new Intent(this, Recording.class);
+        i.putExtra("Record", RecOptions);
+        i.putExtra("Save", SaveOptions);
         startActivity(i);
 
     }
