@@ -136,7 +136,7 @@ Figure 1.0:
 Figure 1.1:
 ![instruction3](https://cloud.githubusercontent.com/assets/9889325/16842516/c1e9b81e-49ab-11e6-8bbe-2f992e61232d.png)
 
-
+####Best method: Install the Tegra Android Development Pack, then install Android Studio and jdk 1.8 separately.  
 
 ###Creating a java project with Android Studio (If you run into any unusual runtime errors, this sample project may be outdated)
 
@@ -328,8 +328,146 @@ If the change indicated in step xii is not made, the following runtime error wil
 	
 	java.lang.IllegalArgumentException: Service Intent must be explicit
 	
+###Implementing the Native OpenCV Library in Android Studio
+
+1. Right-click on the "app" folder and select "Open Module Settings"
+
+2. Select "SDK Location" in the left pane on the "Project Structure" window. In "Android NDK Location", select the directory where the NDK is located. (ex. C:\NVPACK\android-ndk-r10d)
+
+3a. Navigate to gradle-wrapper.properties:
+
+1. Navigate to "Project" mode
+![instruction4](https://cloud.githubusercontent.com/assets/9889325/16917371/51f778bc-4ccf-11e6-94a3-58796b7bd229.png)
+
+2. Open the folder that has the same name as the name of your project (ex. My project name was "PanoramicViewerActual")
+![instruction5](https://cloud.githubusercontent.com/assets/9889325/16917447/a47f355c-4ccf-11e6-87a8-ef83b7f9eae7.png)
+
+3. Open the "gradle" folder -> open "wrapper" -> open "gradle-wrapper.properties"
+
+3b. Ensure that the following line is in gradle-wrapper.properties:
+
+		distributionUrl=https\://services.gradle.org/distributions/gradle-2.10-all.zip
+		
+3c. Navigate back to "Android" mode:
+![instruction6](https://cloud.githubusercontent.com/assets/9889325/16917608/52651218-4cd0-11e6-931a-ab2f8fcbde61.png)
+
+4a. Navigate to the "build.gradle" script for the project (navigate to "Gradle Scripts" -> "build.gradle(Project: <Project-Name>)")
+
+4b. Modify the classpath in the "dependencies" section to
+		
+		classpath 'com.android.tools.build:gradle-experimental:0.7.2'                
+		
+#####5. Add two folders in the "app" directory: "jni" and "jniLibs"; i.e. create the folders in this directory:
+	C:\Users\<Computer-Username>\StudioProjects\<Name-of-Android-Project>\app\src\main 
+
+#####6. In the "jni" folder, create a new C/C++ source file called Pano.cpp
+#####7. Navigate to C:\NVPACK\OpenCV-2.4.8.2-Tegra-sdk\sdk\native\libs and copy all five folders to the "jniLibs" folder
+
+####As of now, this should be your project tree:
+![projecttree](https://cloud.githubusercontent.com/assets/9889325/16918692/92d5e9d6-4cd4-11e6-8788-bc88dd10ea92.PNG)
+
+#####8. Update the DSL (Domain-Specific Language) in the build.gradle file (i.e. build.gradle (Module: app)) by adding the following to the file (i.e. replace all the code already in the file with the exception of the dependencies section):
+    
+    
+        apply plugin: 'com.android.model.application'
+      
+        model{
+          android {
+              compileSdkVersion 24
+              buildToolsVersion "24.0.0"
+      
+              defaultConfig {
+                  applicationId "com.app3.panoramicvieweractual"
+                  minSdkVersion.apiLevel 13
+                  targetSdkVersion.apiLevel 24
+                  versionCode 1
+                  versionName "1.0"
+              }
+              buildTypes {
+                  release {
+                      minifyEnabled false
+                      proguardFiles.add(file('proguard-android.txt')) //getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                  }
+              }
+              ndk {
+                  moduleName "panoramicvieweractual"
+                  ldLibs.addAll(['log'])
+                  cppFlags.add("-std=c++11")
+                  cppFlags.add("-fexceptions")
+                  cppFlags.add("-I${file("C:/NVPACK/OpenCV-2.4.8.2-Tegra-sdk/sdk/native/jni/include")}".toString())
+                  cppFlags.add("-I${file("C:/NVPACK/OpenCV-2.4.8.2-Tegra-sdk/sdk/native/jni/include/opencv")}".toString())
+      
+                  ldLibs.addAll(["android", "EGL", "GLESv2", "dl", "log", "z"])
+                  stl "gnustl_shared"//"gnustl_static"//"gnustl_shared"//"stlport_static"
+              }
+              productFlavors{
+                  create("arm"){
+                      ndk.with{
+                          abiFilters.add("armeabi")
+                          File curDir = file('./')
+                          curDir = file(curDir.absolutePath)
+                          String libsDir = curDir.absolutePath+"\\src\\main\\jniLibs\\armeabi\\" //"-L" +
+                          ldLibs.add(libsDir + "libopencv_core.a")
+                          ldLibs.add(libsDir	+ "libopencv_imgproc.a")
+                          ldLibs.add(libsDir	+	"libopencv_java.so")
+                          ldLibs.add(libsDir	+	"libopencv_features2d.a")
+                      }
+                  }
+                  create("arm7"){
+                      ndk.with {
+                          abiFilters.add("armeabi-v7a")
+                          File curDir	= file('./')
+                          curDir	=	file(curDir.absolutePath)
+                          String	libsDir	= curDir.absolutePath+"\\src\\main\\jniLibs\\armeabi-v7a\\" //"-L"	+
+                          ldLibs.add(libsDir	+	"libopencv_core.a")
+                          ldLibs.add(libsDir	+ "libopencv_imgproc.a")
+                          ldLibs.add(libsDir	+	"libopencv_java.so")
+                          ldLibs.add(libsDir	+	"libopencv_features2d.a")
+                      }
+                  }
+                  create("x86"){
+                      ndk.with{
+                          abiFilters.add("x86")
+                      }
+                  }
+                  create("mips"){
+                      ndk.with{
+                          abiFilters.add("mips")
+                      }
+                  }
+                  create("fat"){
+                  }
+              }
+          }
+        }
+
+#####9. Update the build.gradle file for the openCVLibrary2482 module (located in "Gradle Scripts") with the following:
+
+        apply plugin: 'com.android.model.library'
+        model {
+            android {
+                compileSdkVersion 15
+                buildToolsVersion "19.1.0"
+        
+                defaultConfig {
+                    minSdkVersion.apiLevel 9
+                    targetSdkVersion.apiLevel 9
+                }
+        
+                buildTypes {
+                    release {
+                        minifyEnabled false
+                        proguardFiles.add(file('proguard.rules.txt'))
+                    }
+                }
+            }
+        }
+        
+#####10. Build and sync the project (A header will pop up reading "Gradle files have changed since last project sync. A project sync may be necessary for the IDE to work properly." Click "Sync Now")
 
 
+  
+  
 
 
 
