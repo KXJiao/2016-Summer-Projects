@@ -60,7 +60,7 @@ public class Recording extends AppCompatActivity {
         File mediaFile;
         if (type == 1) {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-                    "IMG_" + timeStamp + ".png");
+                    "IMG_" + timeStamp + ".png");//errors if deleted
         }
         else if (type == 2) {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator +
@@ -77,13 +77,24 @@ public class Recording extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            Intent i;
+            //Intent i;
             switch (requestCode) {
                 case CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE:
-                    //THIS IS YOUR Uri
+
                     Uri uri= fileUri;
-                    break;
+
+                    Toast.makeText(this, "Video saved to:\n" +
+                            uri, Toast.LENGTH_LONG).show();
+                    
             }
         }
+        else if (resultCode == RESULT_CANCELED) {
+            Toast.makeText(this, "Canceled", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Video capture failed", Toast.LENGTH_LONG).show();
+        }
+
+        Intent i = new Intent(this, Video.class);
+        startActivity(i);
     }
 }
