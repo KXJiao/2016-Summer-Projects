@@ -288,7 +288,7 @@ Figure 1.1:
 		        return inputFrame.rgba();
 		    }
 		    
-  xvii. Now you are ready to run the app on an emulator!
+  xvii. Now you are ready to run the app on an emulator! (There will be a notification telling you to install the OpenCV manager, which you should do). 
   
   
 ###Important Notes:
