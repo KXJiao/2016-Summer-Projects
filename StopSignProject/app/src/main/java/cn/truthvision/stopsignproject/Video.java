@@ -17,6 +17,11 @@ public class Video extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
 
+        Intent i = getIntent();
+
+        RecOptions = i.getIntExtra("Record",1);
+        SaveOptions = i.getIntExtra("Save",1);
+
         Button nr = (Button) findViewById(R.id.start_recording);
         nr.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -44,6 +49,9 @@ public class Video extends AppCompatActivity {
 
     private void openSettings(View view) {
         Intent i = new Intent(this, Main.class);
+
+        i.putExtra("Record", RecOptions);
+        i.putExtra("Save", SaveOptions);
 
         startActivity(i);
     }
