@@ -37,7 +37,7 @@ public class Data extends AppCompatActivity {
         for(int x = 0; x < mediaStorageDir.listFiles().length; x++){
             //Toast.makeText(this, temp[x].toURI() + "", Toast.LENGTH_LONG).show();
             Button myButton = new Button(this);
-            myButton.setText(temp[x].toURI()+"");
+            myButton.setText(temp[x].getName()+"");
             final String uri = temp[x].toURI()+"";
             myButton.setOnClickListener(new View.OnClickListener() {
 
@@ -52,11 +52,6 @@ public class Data extends AppCompatActivity {
 
 
 
-
-
-
-
-
         
         Button settings = (Button) findViewById(R.id.settingsbutton3);
         settings.setOnClickListener(new View.OnClickListener(){
@@ -66,25 +61,11 @@ public class Data extends AppCompatActivity {
            }
         });
 
-        Button dabirdandanorf = (Button) findViewById(R.id.button3);
-        dabirdandanorf.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                openSattings(view);
-            }
-
-
-        });
     }
 
     private void viewVideo(View v, String ur) {
         Intent intent = new Intent(this, VideoPlayer.class);
         intent.putExtra("URI", ur);
-        startActivity(intent);
-    }
-
-    private void openSattings(View view) {
-        Intent intent = new Intent(this, VideoPlayer.class);
         startActivity(intent);
     }
 

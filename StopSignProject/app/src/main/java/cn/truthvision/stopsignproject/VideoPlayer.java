@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -33,14 +34,17 @@ public class VideoPlayer extends AppCompatActivity {
 
 
 
-
-
-        VideoView mVideoView2 = (VideoView)findViewById(R.id.videoView);
+        final VideoView videoView = (VideoView)findViewById(R.id.videoView);
         String uriPath2 = s;
         Uri uri2 = Uri.parse(uriPath2);
-        mVideoView2.setVideoURI(uri2);
-        mVideoView2.requestFocus();
-        mVideoView2.start();
+        videoView.setVideoURI(uri2);
+        MediaController mediaController = new
+                MediaController(this);
+        mediaController.setAnchorView(videoView);
+        videoView.setMediaController(mediaController);
+        videoView.requestFocus();
+        videoView.start();
+
 
     }
 }
