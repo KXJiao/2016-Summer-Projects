@@ -13,8 +13,6 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import cn.truthvision.stopsignlib.VideoManager;
-
 public class Recording extends AppCompatActivity {
 
     private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
