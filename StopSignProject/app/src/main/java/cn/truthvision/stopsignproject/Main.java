@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 public class Main extends AppCompatActivity {
 
@@ -21,7 +20,14 @@ public class Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button vidb = (Button) findViewById(R.id.vidbutton);
+        Button record = (Button) findViewById(R.id.homebutton);
+        record.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                beginRecord(v);
+            }
+        });
+
+        Button vidb = (Button) findViewById(R.id.savedvidbutton);
         vidb.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 openVideo(v);
@@ -56,13 +62,7 @@ public class Main extends AppCompatActivity {
 
     }
     
-    /*public void openHome(View v){
-        Intent intent = new Intent(this, Home.class);
-        startActivity(intent);
-        //finish();
-    }*/
-
-    public void openVideo(View v){
+    public void beginRecord(View v){
         Intent intent = new Intent(this, Video.class);
 
         int RecOptions = 1;
@@ -80,14 +80,20 @@ public class Main extends AppCompatActivity {
         else
             SaveOptions = 2;
 
-
         intent.putExtra("Record", RecOptions);
         intent.putExtra("Save", SaveOptions);
+        startActivity(intent);
+
+    }
+
+    public void openVideo(View v){
+        Intent intent = new Intent(this, SavedVideo.class);
+
         startActivity(intent);
     }
 
     public void openData(View v){
-        Intent intent = new Intent(this, Data.class);
+        Intent intent = new Intent(this, SavedData.class);
         startActivity(intent);
         finish();
     }

@@ -34,16 +34,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Video"
-            android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".Data">
+        <activity android:name=".SavedVideo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -90,7 +81,15 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".Recording" />
-        <activity android:name=".VideoPlayer"></activity>
+        <activity android:name=".VideoPlayer" />
+        <activity android:name=".SavedData" />
+        <activity android:name=".Video">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
