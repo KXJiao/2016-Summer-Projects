@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import java.io.File;
 
-public class Data extends AppCompatActivity {
+public class SavedVideo extends AppCompatActivity {
 
     ArrayAdapter<String> adapter;
 
