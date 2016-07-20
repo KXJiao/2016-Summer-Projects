@@ -39,7 +39,7 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        Button d = (Button) findViewById(R.id.button3);
+        Button d = (Button) findViewById(R.id.button6);
         d.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 openData(v);
@@ -52,7 +52,7 @@ public class Home extends AppCompatActivity {
 
 
     private void openVideo(View v) {
-        Intent intent = new Intent(this, Video.class);
+        Intent intent = new Intent(this, Recording.class);
 
         int RecOptions = 1;
         int SaveOptions = 1;
