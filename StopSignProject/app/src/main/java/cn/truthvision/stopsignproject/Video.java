@@ -10,7 +10,7 @@ import android.widget.Button;
 public class Video extends AppCompatActivity {
     private int RecOptions = 1;
     private int SaveOptions = 1;
-
+    private int DBOptions = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +21,7 @@ public class Video extends AppCompatActivity {
 
         RecOptions = i.getIntExtra("Record",1);
         SaveOptions = i.getIntExtra("Save",1);
+        DBOptions = i.getIntExtra("Database",1);
 
         Button nr = (Button) findViewById(R.id.start_recording);
         nr.setOnClickListener(new View.OnClickListener(){
@@ -52,6 +53,7 @@ public class Video extends AppCompatActivity {
 
         i.putExtra("Record", RecOptions);
         i.putExtra("Save", SaveOptions);
+        i.putExtra("Database", DBOptions);
 
         startActivity(i);
     }

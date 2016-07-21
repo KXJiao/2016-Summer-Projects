@@ -14,6 +14,9 @@ public class Main extends AppCompatActivity {
     RadioButton a3;
     RadioButton b1;
     RadioButton b2;
+    RadioButton c1;
+    RadioButton c2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,9 @@ public class Main extends AppCompatActivity {
         b1 = (RadioButton) findViewById(R.id.adddatabase);
         b2 = (RadioButton) findViewById(R.id.realtime);
 
+        c1 = (RadioButton) findViewById(R.id.accessdb);
+        c2 = (RadioButton) findViewById(R.id.noaccess);
+
 
 
     }
@@ -67,6 +73,7 @@ public class Main extends AppCompatActivity {
 
         int RecOptions = 1;
         int SaveOptions = 1;
+        int DBOptions = 1;
 
         if(a1.isChecked())
             RecOptions = 1;
@@ -80,8 +87,14 @@ public class Main extends AppCompatActivity {
         else
             SaveOptions = 2;
 
+        if(c1.isChecked())
+            DBOptions = 1;
+        else
+            DBOptions = 2;
+
         intent.putExtra("Record", RecOptions);
         intent.putExtra("Save", SaveOptions);
+        intent.putExtra("Database", DBOptions);
         startActivity(intent);
 
     }
