@@ -56,9 +56,11 @@ public class Home extends AppCompatActivity {
 
         int RecOptions = 1;
         int SaveOptions = 1;
+        int DBOptions = 1;
 
         intent.putExtra("Record", RecOptions);
         intent.putExtra("Save", SaveOptions);
+        intent.putExtra("Database", DBOptions);
 
         startActivity(intent);
     }

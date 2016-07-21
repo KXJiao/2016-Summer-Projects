@@ -19,6 +19,7 @@ public class Recording extends AppCompatActivity {
     private Uri fileUri;
     private int RecOptions = 1;
     private int SaveOptions = 1;
+    private int DBOptions = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class Recording extends AppCompatActivity {
 
         RecOptions = i.getIntExtra("Record", 1);
         SaveOptions = i.getIntExtra("Save",1);
+        DBOptions = i.getIntExtra("Database", 1);
 
         Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
 
