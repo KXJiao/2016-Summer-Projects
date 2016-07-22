@@ -69,7 +69,7 @@ public class Main extends AppCompatActivity {
     }
     
     public void beginRecord(View v){
-        Intent intent = new Intent(this, Video.class);
+        Intent intent = new Intent(this, Recording.class);
 
         int RecOptions = 1;
         int SaveOptions = 1;
