@@ -377,7 +377,7 @@ If the change indicated in step xii is not made, the following runtime error wil
               buildToolsVersion "24.0.0"
       
               defaultConfig {
-                  applicationId "com.app3.panoramicvieweractual"
+                  applicationId "<APP-DOMAIN>"//ex. cn.truthvision.stopsignproject
                   minSdkVersion.apiLevel 13
                   targetSdkVersion.apiLevel 24
                   versionCode 1
@@ -390,7 +390,7 @@ If the change indicated in step xii is not made, the following runtime error wil
                   }
               }
               ndk {
-                  moduleName "panoramicvieweractual"
+                  moduleName "<MODULE-NAME>" //ex. StopSignDetection 
                   ldLibs.addAll(['log'])
                   cppFlags.add("-std=c++11")
                   cppFlags.add("-fexceptions")
