@@ -77,6 +77,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.android.support:design:24.1.1'
     compile 'com.google.android.gms:play-services-maps:9.2.1'
+    //compile 'com.google.android.gms:play-services-places:9.2.1'
+    compile 'com.google.android.gms:play-services-location:9.2.1'
     //    compile 'com.google.android.gms:play-services-appindexing:9.2.0'
     //    compile 'com.google.android.gms:play-services:9.2.1'
     //    compile 'com.google.android.gms:play-services-ads:9.2.1'
