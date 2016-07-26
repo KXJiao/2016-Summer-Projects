@@ -47,12 +47,25 @@ public class Home extends AppCompatActivity {
         });
 
 
+//        ////////////////////////test button
+//        Button test = (Button) findViewById(R.id.button8);
+//        test.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v){
+//                test(v);
+//            }
+//        });
+
+
     }
 
+//    private void test(View v) {
+//        Intent intent = new Intent(this, AutoRecording.class);
+//        startActivity(intent);
+//    }
 
 
     private void openVideo(View v) {
-        Intent intent = new Intent(this, Recording.class);
+        Intent intent = new Intent(this, AutoRecording.class);
 
         int RecOptions = 1;
         int SaveOptions = 1;

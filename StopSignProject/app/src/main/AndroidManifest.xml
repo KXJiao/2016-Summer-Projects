@@ -85,7 +85,12 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".Recording" />
-        <activity android:name=".VideoPlayer" />
+        <activity android:name=".AutoRecording"
+            android:screenOrientation="landscape"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name=".VideoPlayer"/>
+
+
         <activity android:name=".SavedData" />
         <activity android:name=".Video">
             <intent-filter>

@@ -68,5 +68,13 @@
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/button8"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true" />
+
 
 </RelativeLayout>
