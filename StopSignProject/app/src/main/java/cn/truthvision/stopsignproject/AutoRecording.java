@@ -30,6 +30,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import cn.truthvision.stopsignlib.DBHandler;
+import cn.truthvision.stopsignlib.VideoInfo;
+
 public class AutoRecording extends AppCompatActivity implements  SurfaceHolder.Callback{
 
 
@@ -38,6 +41,7 @@ public class AutoRecording extends AppCompatActivity implements  SurfaceHolder.C
     private int SaveOptions = 1;
     private int DBOptions = 1;
     String uri;
+    String filename;
 
     MediaRecorder recorder;
     SurfaceHolder holder;
@@ -89,7 +93,7 @@ public class AutoRecording extends AppCompatActivity implements  SurfaceHolder.C
         String filepath = mediaStorageDir.getPath();
 
 
-
+        filename = timeStamp;
         uri = filepath + "/" + timeStamp + ".mp4";
         recorder.setOutputFile(filepath + "/" + timeStamp + ".mp4");
         recorder.setMaxDuration(500000000); // 500000 seconds
@@ -139,9 +143,17 @@ public class AutoRecording extends AppCompatActivity implements  SurfaceHolder.C
             Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
             if (location != null) {
                 LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
+
+
+                //code for the database
+                DBHandler dbh = new DBHandler(this,null,null,1);
+                VideoInfo vid = new VideoInfo(filename,uri,location.getLatitude(),location.getLongitude());
+                dbh.addVideo(vid);
+
                 Toast.makeText(this, "This is: " + latlng.toString(), Toast.LENGTH_LONG).show();
             }
-            
+
+
 
 
 

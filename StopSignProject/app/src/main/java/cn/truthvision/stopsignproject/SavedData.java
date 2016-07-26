@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TableLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -27,6 +28,10 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import cn.truthvision.stopsignlib.DBHandler;
+import cn.truthvision.stopsignlib.VideoInfo;
 
 public class SavedData extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -51,6 +56,8 @@ public class SavedData extends AppCompatActivity implements OnMapReadyCallback {
 
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        TableLayout tbl = (TableLayout) findViewById(R.id.Table);
 
 
     }
@@ -87,6 +94,16 @@ public class SavedData extends AppCompatActivity implements OnMapReadyCallback {
             map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         }
+
+
+        DBHandler dbh = new DBHandler(this,null,null,1);
+        //VideoInfo vid = new VideoInfo(filename,uri,location.getLatitude(),location.getLongitude());
+        for(int x = 0; x< dbh.count(); x++){
+            VideoInfo vid = dbh.findID(x);
+
+            map.addMarker(new MarkerOptions().position(new LatLng(vid.getLat(), vid.getLng())).title(vid.toString()));
+        }
+
         //map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
     }
 
