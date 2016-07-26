@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 public class Main extends AppCompatActivity {
 
@@ -15,13 +14,23 @@ public class Main extends AppCompatActivity {
     RadioButton a3;
     RadioButton b1;
     RadioButton b2;
+    RadioButton c1;
+    RadioButton c2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button vidb = (Button) findViewById(R.id.vidbutton);
+        Button record = (Button) findViewById(R.id.homebutton);
+        record.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                beginRecord(v);
+            }
+        });
+
+        Button vidb = (Button) findViewById(R.id.savedvidbutton);
         vidb.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 openVideo(v);
@@ -52,21 +61,19 @@ public class Main extends AppCompatActivity {
         b1 = (RadioButton) findViewById(R.id.adddatabase);
         b2 = (RadioButton) findViewById(R.id.realtime);
 
+        c1 = (RadioButton) findViewById(R.id.accessdb);
+        c2 = (RadioButton) findViewById(R.id.noaccess);
+
 
 
     }
     
-    /*public void openHome(View v){
-        Intent intent = new Intent(this, Home.class);
-        startActivity(intent);
-        //finish();
-    }*/
-
-    public void openVideo(View v){
-        Intent intent = new Intent(this, Video.class);
+    public void beginRecord(View v){
+        Intent intent = new Intent(this, Recording.class);
 
         int RecOptions = 1;
         int SaveOptions = 1;
+        int DBOptions = 1;
 
         if(a1.isChecked())
             RecOptions = 1;
@@ -80,14 +87,26 @@ public class Main extends AppCompatActivity {
         else
             SaveOptions = 2;
 
+        if(c1.isChecked())
+            DBOptions = 1;
+        else
+            DBOptions = 2;
 
         intent.putExtra("Record", RecOptions);
         intent.putExtra("Save", SaveOptions);
+        intent.putExtra("Database", DBOptions);
+        startActivity(intent);
+
+    }
+
+    public void openVideo(View v){
+        Intent intent = new Intent(this, SavedVideo.class);
+
         startActivity(intent);
     }
 
     public void openData(View v){
-        Intent intent = new Intent(this, Data.class);
+        Intent intent = new Intent(this, SavedData.class);
         startActivity(intent);
         finish();
     }
