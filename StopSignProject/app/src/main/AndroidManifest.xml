@@ -7,21 +7,23 @@
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the 'MyLocation' functionality. 
     -->
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
+    <uses-permission android:name="android.permission.NFC" />
     <uses-feature
-        android:name="android.hardware.camera"
+        android:name="android.hardware.nfc"
         android:required="true" />
-
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -31,15 +33,37 @@
         android:theme="@style/AppTheme">
 
         <!-- "@style/AppTheme" -->
+<<<<<<< HEAD
         <activity android:name=".Splash"
             android:theme="@style/AppTheme.NoActionBar">
+=======
+        <activity android:name=".Home" android:label="@string/app_name">
+>>>>>>> origin/master
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SavedVideo">
+
+        <activity android:name=".Splash" android:label="Splash Screen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".Video"
+            android:theme="@style/AppTheme" android:label="Video">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SavedVideo" android:label="Saved Videos">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -58,15 +82,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDPFyUivYyniEOw2Qq297dLL-9sE5Vb_qQ" />
 
-        <activity
-            android:name=".Home"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".Main"
             android:label="@string/home_button"
@@ -85,21 +101,27 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".Recording" />
-        <activity android:name=".AutoRecording"
-            android:screenOrientation="landscape"
-            android:configChanges="keyboardHidden|orientation|screenSize"/>
-        <activity android:name=".VideoPlayer"/>
-
-
-        <activity android:name=".SavedData" />
-        <activity android:name=".Video">
+        <activity android:name=".Recording" android:label="Recording">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AutoRecording"
+                  android:screenOrientation="landscape"
+                  android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:label="Auto Recording"
+            />
+        <activity android:name=".VideoPlayer" android:label="Video Player">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SavedData" android:label="Saved Data" />
+        <activity android:name=".Processing" android:label="Processing"/>
     </application>
 
 </manifest>
