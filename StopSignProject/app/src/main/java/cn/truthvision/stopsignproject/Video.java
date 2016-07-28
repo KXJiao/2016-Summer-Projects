@@ -1,5 +1,6 @@
 package cn.truthvision.stopsignproject;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.media.audiofx.BassBoost;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Video extends AppCompatActivity {
+public class Video extends Activity {
     private int RecOptions = 1;
     private int SaveOptions = 1;
     private int DBOptions = 1;

@@ -1,5 +1,6 @@
 package cn.truthvision.stopsignproject;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-public class Home extends AppCompatActivity {
+public class Home extends Activity {
 
 
     @Override
@@ -47,12 +48,25 @@ public class Home extends AppCompatActivity {
         });
 
 
+//        ////////////////////////test button
+//        Button test = (Button) findViewById(R.id.button8);
+//        test.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v){
+//                test(v);
+//            }
+//        });
+
+
     }
 
+//    private void test(View v) {
+//        Intent intent = new Intent(this, AutoRecording.class);
+//        startActivity(intent);
+//    }
 
 
     private void openVideo(View v) {
-        Intent intent = new Intent(this, Recording.class);
+        Intent intent = new Intent(this, AutoRecording.class);
 
         int RecOptions = 1;
         int SaveOptions = 1;

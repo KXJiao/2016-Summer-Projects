@@ -1,6 +1,7 @@
 package cn.truthvision.stopsignproject;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TableLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -27,15 +29,13 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class SavedData extends AppCompatActivity implements OnMapReadyCallback {
+import cn.truthvision.stopsignlib.DBHandler;
+import cn.truthvision.stopsignlib.VideoInfo;
 
+public class SavedData extends Activity implements OnMapReadyCallback {
 
-    private GoogleApiClient mGoogleApiClient;
-    private LocationRequest mLocationRequest;
-
-    private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
-    private long FASTEST_INTERVAL = 2000; /* 2 sec */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +51,8 @@ public class SavedData extends AppCompatActivity implements OnMapReadyCallback {
 
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        TableLayout tbl = (TableLayout) findViewById(R.id.Table);
 
 
     }
@@ -75,8 +77,7 @@ public class SavedData extends AppCompatActivity implements OnMapReadyCallback {
 
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
         if (location != null) {
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                    new LatLng(location.getLatitude(), location.getLongitude()), 13));
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to location user
@@ -87,6 +88,18 @@ public class SavedData extends AppCompatActivity implements OnMapReadyCallback {
             map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         }
+
+
+        DBHandler dbh = new DBHandler(this,null,null,1);
+
+        if(dbh.count()>0) {
+            for (int x = 1; x <= dbh.count(); x++) {
+                VideoInfo vid = dbh.findID(x);
+                map.addMarker(new MarkerOptions().position(new LatLng(vid.getLat(), vid.getLng())).title(vid.getFileName() + ", " + vid.getLatLng()));
+            }
+        }
+
+
         //map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
     }
 
