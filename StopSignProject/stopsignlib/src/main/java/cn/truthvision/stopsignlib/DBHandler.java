@@ -128,13 +128,19 @@ public class DBHandler extends SQLiteOpenHelper {
         return vid;
     }
 
-    public long count() {
+    public int count() {
         String sql = "SELECT COUNT(*) FROM " + TABLE_VIDEOS;
         //SQLiteStatement statement = mDatabase.compileStatement(sql);
+
+
         SQLiteDatabase db = this.getWritableDatabase();
-        long numRows = DatabaseUtils.longForQuery(db, "SELECT COUNT(*) FROM videos", null);
+
+        Cursor cursor = db.rawQuery(sql, null);
+
+        //SQLiteDatabase db = this.getWritableDatabase();
+        //long numRows = DatabaseUtils.longForQuery(db, "SELECT COUNT(*) FROM videos", null);
         //long count = statement.simpleQueryForLong();
-        return numRows;
+        return cursor.getCount();
     }
 
 }
