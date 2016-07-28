@@ -1,6 +1,7 @@
 package cn.truthvision.stopsignproject;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -33,7 +34,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import cn.truthvision.stopsignlib.DBHandler;
 import cn.truthvision.stopsignlib.VideoInfo;
 
-public class SavedData extends AppCompatActivity implements OnMapReadyCallback {
+public class SavedData extends Activity implements OnMapReadyCallback {
 
 
     private GoogleApiClient mGoogleApiClient;
@@ -82,8 +83,7 @@ public class SavedData extends AppCompatActivity implements OnMapReadyCallback {
 
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
         if (location != null) {
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(
-                    new LatLng(location.getLatitude(), location.getLongitude()), 13));
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to location user
@@ -98,10 +98,14 @@ public class SavedData extends AppCompatActivity implements OnMapReadyCallback {
 
         DBHandler dbh = new DBHandler(this,null,null,1);
         //VideoInfo vid = new VideoInfo(filename,uri,location.getLatitude(),location.getLongitude());
-        for(int x = 0; x< dbh.count(); x++){
+        for(int x = 1; x<= dbh.count(); x++){
+            //System.out.println(x);
             VideoInfo vid = dbh.findID(x);
+            //System.out.println(vid);
+            //System.out.println(dbh.count());
+            //Toast.makeText(this, vid.toString(), Toast.LENGTH_LONG).show();
 
-            map.addMarker(new MarkerOptions().position(new LatLng(vid.getLat(), vid.getLng())).title(vid.toString()));
+            map.addMarker(new MarkerOptions().position(new LatLng(vid.getLat(), vid.getLng())).title(vid.getFileName()+", " + vid.getLatLng()));
         }
 
         //map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));

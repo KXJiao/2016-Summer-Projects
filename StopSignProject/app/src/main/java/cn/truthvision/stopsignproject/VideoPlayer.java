@@ -1,5 +1,6 @@
 package cn.truthvision.stopsignproject;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,7 +23,7 @@ import java.io.File;
 /**
  * Created by bball on 7/20/2016.
  */
-public class VideoPlayer extends AppCompatActivity {
+public class VideoPlayer extends Activity {
 
     VideoView videoView;
     MediaMetadataRetriever dataRetriever;

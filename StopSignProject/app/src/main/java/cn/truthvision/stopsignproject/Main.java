@@ -1,5 +1,6 @@
 package cn.truthvision.stopsignproject;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 
-public class Main extends AppCompatActivity {
+public class Main extends Activity {
 
     RadioButton a1;
     RadioButton a2;

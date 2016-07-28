@@ -2,6 +2,7 @@ package cn.truthvision.stopsignproject;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -33,7 +34,7 @@ import java.util.Date;
 import cn.truthvision.stopsignlib.DBHandler;
 import cn.truthvision.stopsignlib.VideoInfo;
 
-public class AutoRecording extends AppCompatActivity implements  SurfaceHolder.Callback{
+public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
 
 
     private Uri fileUri;
@@ -59,6 +60,25 @@ public class AutoRecording extends AppCompatActivity implements  SurfaceHolder.C
         RecOptions = i.getIntExtra("Record", 1);
         SaveOptions = i.getIntExtra("Save", 1);
         DBOptions = i.getIntExtra("Database", 1);
+
+
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
 
 
         recorder = new MediaRecorder();
@@ -88,7 +108,7 @@ public class AutoRecording extends AppCompatActivity implements  SurfaceHolder.C
                 .get(CamcorderProfile.QUALITY_HIGH);
         recorder.setProfile(cpHigh);
 
-        String timeStamp = new SimpleDateFormat("yyyy_MM_dd_HHmmss").format(new Date());
+        String timeStamp = new SimpleDateFormat("yyyy_MM_dd_HH-mm-ss").format(new Date());
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "StopSignVidStore");
         String filepath = mediaStorageDir.getPath();
 
@@ -148,9 +168,10 @@ public class AutoRecording extends AppCompatActivity implements  SurfaceHolder.C
                 //code for the database
                 DBHandler dbh = new DBHandler(this,null,null,1);
                 VideoInfo vid = new VideoInfo(filename,uri,location.getLatitude(),location.getLongitude());
-                dbh.addVideo(vid);
-
-                Toast.makeText(this, "This is: " + latlng.toString(), Toast.LENGTH_LONG).show();
+                System.out.println(vid);
+                System.out.println(dbh.addVideo(vid));
+                //Toast.makeText(this, vid.toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, "This is: " + latlng.toString(), Toast.LENGTH_LONG).show();
             }
 
 

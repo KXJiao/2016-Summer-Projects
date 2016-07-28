@@ -1,5 +1,6 @@
 package cn.truthvision.stopsignproject;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +14,7 @@ import android.support.v7.app.ActionBar.LayoutParams;
 
 import java.io.File;
 
-public class SavedVideo extends AppCompatActivity {
+public class SavedVideo extends Activity {
 
     private String[] videoArray = new String[20];
     private ListView listView;

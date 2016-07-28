@@ -44,7 +44,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     //Methods
-    public void addVideo(VideoInfo video) {
+    public boolean addVideo(VideoInfo video) {
 
         ContentValues values = new ContentValues();
         values.put(COLUMN_FILENAME, video.getFileName());
@@ -56,6 +56,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         db.insert(TABLE_VIDEOS, null, values);
         db.close();
+        return true;
     }
 
     public VideoInfo findVideo(String filename) {
@@ -128,19 +129,19 @@ public class DBHandler extends SQLiteOpenHelper {
         return vid;
     }
 
-    public int count() {
+    public long count() {
         String sql = "SELECT COUNT(*) FROM " + TABLE_VIDEOS;
         //SQLiteStatement statement = mDatabase.compileStatement(sql);
 
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        Cursor cursor = db.rawQuery(sql, null);
+        //Cursor cursor = db.rawQuery(sql, null);
 
         //SQLiteDatabase db = this.getWritableDatabase();
-        //long numRows = DatabaseUtils.longForQuery(db, "SELECT COUNT(*) FROM videos", null);
+        long numRows = DatabaseUtils.longForQuery(db, "SELECT COUNT(*) FROM videos", null);
         //long count = statement.simpleQueryForLong();
-        return cursor.getCount();
+        return numRows;//cursor.getCount();
     }
 
 }
