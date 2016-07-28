@@ -34,15 +34,11 @@
 
         <!-- "@style/AppTheme" -->
 <<<<<<< HEAD
-<<<<<<< HEAD
         <activity android:name=".Splash"
             android:theme="@style/AppTheme.NoActionBar">
 =======
         <activity android:name=".Home" android:label="@string/app_name">
 >>>>>>> origin/master
-=======
-        <activity android:name=".Splash">
->>>>>>> parent of 486c4dc... Theme switch to white
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
