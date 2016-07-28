@@ -39,6 +39,7 @@ public class SavedVideo extends Activity {
         String root = Environment.getExternalStorageDirectory().toString();
         File myDir = new File(root + "/Pictures/StopSignVidFrames");
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "StopSignVidStore");
+<<<<<<< HEAD
         //File mediaStorageDir2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "StopSignVidFrames");
         //TableLayout dataTable = new TableLayout(this);
         ///TableRow headerRow = new TableRow(this);
@@ -54,6 +55,16 @@ public class SavedVideo extends Activity {
         //headerRow.addView(snapshot);
         //headerRow.addView(index);
         //dataTable.addView(headerRow);
+=======
+
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return;
+            }
+        }
+
+
+>>>>>>> origin/master
         LinearLayout ll = (LinearLayout)findViewById(R.id.linearLayout23);
         LinearLayout ll2 = (LinearLayout) findViewById(R.id.linearLayout4);
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
