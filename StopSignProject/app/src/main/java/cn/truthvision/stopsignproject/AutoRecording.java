@@ -14,6 +14,7 @@ import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.SurfaceHolder;
@@ -28,6 +29,8 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -37,7 +40,6 @@ import cn.truthvision.stopsignlib.VideoInfo;
 public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
 
 
-    private Uri fileUri;
     private int RecOptions = 1;
     private int SaveOptions = 1;
     private int DBOptions = 1;
@@ -52,7 +54,6 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_recording2);
 
 
         Intent i = getIntent();
@@ -69,13 +70,6 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
@@ -89,6 +83,24 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
         holder = cameraView.getHolder();
         holder.addCallback(this);
         holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+
+
+
+        /////////////////////////////////////////////CODE FOR STREAMING VIDEO////////////////////////////////
+        String hostname = "spam.virus.com";
+        int port = 666;
+        Socket sock = null;
+        try {
+            sock = new Socket(InetAddress.getByName(hostname),port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ParcelFileDescriptor pfd = ParcelFileDescriptor.fromSocket(sock);
+
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
 
         stopper = (Button) findViewById(R.id.start);
         stopper.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +122,12 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
 
         String timeStamp = new SimpleDateFormat("yyyy_MM_dd_HH-mm-ss").format(new Date());
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "StopSignVidStore");
+
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return;
+            }
+        }
         String filepath = mediaStorageDir.getPath();
 
 
@@ -151,38 +169,19 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
                 return;
             }
             Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
             if (location != null) {
-                LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
-
 
                 //code for the database
                 DBHandler dbh = new DBHandler(this,null,null,1);
                 VideoInfo vid = new VideoInfo(filename,uri,location.getLatitude(),location.getLongitude());
                 System.out.println(vid);
                 System.out.println(dbh.addVideo(vid));
-                //Toast.makeText(this, vid.toString(), Toast.LENGTH_LONG).show();
-                //Toast.makeText(this, "This is: " + latlng.toString(), Toast.LENGTH_LONG).show();
             }
 
-
-
-
-
             startActivity(i);
-
-            // Let's initRecorder so we can record again
-            //initRecorder();
-            //prepareRecorder();
 
         } else {
             recording = true;

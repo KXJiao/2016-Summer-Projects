@@ -34,6 +34,12 @@ public class SavedVideo extends Activity {
 
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "StopSignVidStore");
 
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return;
+            }
+        }
+
 
         LinearLayout ll = (LinearLayout)findViewById(R.id.linearLayout23);
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);

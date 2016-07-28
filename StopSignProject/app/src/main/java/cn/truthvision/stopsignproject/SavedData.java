@@ -37,12 +37,6 @@ import cn.truthvision.stopsignlib.VideoInfo;
 public class SavedData extends Activity implements OnMapReadyCallback {
 
 
-    private GoogleApiClient mGoogleApiClient;
-    private LocationRequest mLocationRequest;
-
-    private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
-    private long FASTEST_INTERVAL = 2000; /* 2 sec */
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,16 +91,14 @@ public class SavedData extends Activity implements OnMapReadyCallback {
 
 
         DBHandler dbh = new DBHandler(this,null,null,1);
-        //VideoInfo vid = new VideoInfo(filename,uri,location.getLatitude(),location.getLongitude());
-        for(int x = 1; x<= dbh.count(); x++){
-            //System.out.println(x);
-            VideoInfo vid = dbh.findID(x);
-            //System.out.println(vid);
-            //System.out.println(dbh.count());
-            //Toast.makeText(this, vid.toString(), Toast.LENGTH_LONG).show();
 
-            map.addMarker(new MarkerOptions().position(new LatLng(vid.getLat(), vid.getLng())).title(vid.getFileName()+", " + vid.getLatLng()));
+        if(dbh.count()>0) {
+            for (int x = 1; x <= dbh.count(); x++) {
+                VideoInfo vid = dbh.findID(x);
+                map.addMarker(new MarkerOptions().position(new LatLng(vid.getLat(), vid.getLng())).title(vid.getFileName() + ", " + vid.getLatLng()));
+            }
         }
+
 
         //map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
     }
