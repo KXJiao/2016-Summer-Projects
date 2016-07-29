@@ -120,7 +120,7 @@ public class VideoPlayer extends Activity {
 
     private File getOutputMediaFile(int type){
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "StopSignVidFrames");
+                Environment.DIRECTORY_PICTURES), "StopSignVidStore");
 
         /**Create the storage directory if it does not exist*/
         if (!mediaStorageDir.exists()) {
@@ -148,12 +148,12 @@ public class VideoPlayer extends Activity {
     private void saveImage(Bitmap bitmap){
         String root = Environment.getExternalStorageDirectory().toString();
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        File myDir = new File(root + "/Pictures/StopSignVidFrames");
+        File myDir = new File(root + "/Pictures/StopSignVidStore");
         myDir.mkdirs();
         Random generator = new Random();
         int n = 10000;
         n = generator.nextInt(n);
-        String fname = "Image-"+n+"TimeStamp- "+timeStamp+".jpg";
+        String fname = "Image-"+n+".jpg";
         File file = new File(myDir, fname);
         if(file.exists())
             file.delete();
