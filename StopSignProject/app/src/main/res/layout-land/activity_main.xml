@@ -13,7 +13,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:id="@+id/scrollView2">
+        android:id="@+id/scrollView2"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/relativeLayout">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -153,9 +155,10 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/scrollView2"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="33dp">
+        android:layout_marginBottom="92dp"
+        android:id="@+id/relativeLayout">
 
         <Button
             android:layout_width="125dp"

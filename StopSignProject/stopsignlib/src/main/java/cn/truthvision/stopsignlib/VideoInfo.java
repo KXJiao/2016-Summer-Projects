@@ -10,6 +10,7 @@ import java.net.URISyntaxException;
  */
 public class VideoInfo {
 
+    private int _id;
     private String _filename;
     private String _uri;
     private double _lat;
@@ -19,6 +20,14 @@ public class VideoInfo {
 
     }
 
+    public VideoInfo(int id, String filename, String uri, double lat, double lng) {
+        this._id = id;
+        this._filename = filename;
+        this._uri = uri;
+        this._lat = lat;
+        this._lng = lng;
+    }
+
     public VideoInfo(String filename, String uri, double lat, double lng) {
         this._filename = filename;
         this._uri = uri;
@@ -26,9 +35,12 @@ public class VideoInfo {
         this._lng = lng;
     }
 
-    public VideoInfo(String filename, String uri) {
-        this._filename = filename;
-        this._uri = uri;
+    public void setID(int id) {
+        this._id = id;
+    }
+
+    public int getID() {
+        return this._id;
     }
 
     public String getFileName() {
