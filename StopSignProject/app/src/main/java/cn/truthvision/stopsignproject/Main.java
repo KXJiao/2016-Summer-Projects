@@ -31,15 +31,6 @@ public class Main extends Activity {
             }
         });
 
-        Button vidb = (Button) findViewById(R.id.savedvidbutton);
-        vidb.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
-                openVideo(v);
-            }
-        });
-
-
-
         Button mapb = (Button) findViewById(R.id.cloudbutton);
         mapb.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
