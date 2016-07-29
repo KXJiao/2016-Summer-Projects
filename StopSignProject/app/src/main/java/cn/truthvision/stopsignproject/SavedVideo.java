@@ -39,7 +39,7 @@ public class SavedVideo extends Activity {
         String root = Environment.getExternalStorageDirectory().toString();
         File myDir = new File(root + "/Pictures/StopSignVidFrames");
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "StopSignVidStore");
-<<<<<<< HEAD
+
         //File mediaStorageDir2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "StopSignVidFrames");
         //TableLayout dataTable = new TableLayout(this);
         ///TableRow headerRow = new TableRow(this);
@@ -55,7 +55,14 @@ public class SavedVideo extends Activity {
         //headerRow.addView(snapshot);
         //headerRow.addView(index);
         //dataTable.addView(headerRow);
-=======
+
+        Button datab = (Button) findViewById(R.id.button7);
+        datab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                openData(v);
+            }
+        });
+
 
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdirs()) {
@@ -64,9 +71,9 @@ public class SavedVideo extends Activity {
         }
 
 
->>>>>>> origin/master
+
         LinearLayout ll = (LinearLayout)findViewById(R.id.linearLayout23);
-        LinearLayout ll2 = (LinearLayout) findViewById(R.id.linearLayout4);
+        //LinearLayout ll2 = (LinearLayout) findViewById(R.id.linearLayout4);
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
         //ll.addView(dataTable, lp);
@@ -101,7 +108,7 @@ public class SavedVideo extends Activity {
                 }
             });
 
-            ll2.addView(button2, lp);
+            //ll2.addView(button2, lp);
 
         }
 
@@ -126,6 +133,12 @@ public class SavedVideo extends Activity {
         Intent intent = new Intent(this, VideoPlayer.class);
         intent.putExtra("URI", ur);
         startActivity(intent);
+    }
+
+    public void openData(View v){
+        Intent intent = new Intent(this, SavedData.class);
+        startActivity(intent);
+        finish();
     }
 
 }

@@ -22,6 +22,12 @@
             android:id="@+id/settingsbutton3"
             />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data"
+            android:id="@+id/button7" />
+
     </LinearLayout>
 
     <ScrollView

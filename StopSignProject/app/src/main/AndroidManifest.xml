@@ -120,7 +120,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".SavedData" android:label="Saved Data" />
-        <activity android:name=".Processing" android:label="Processing"/>
     </application>
 
 </manifest>
