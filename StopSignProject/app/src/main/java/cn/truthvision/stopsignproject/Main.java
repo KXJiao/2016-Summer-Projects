@@ -31,20 +31,6 @@ public class Main extends Activity {
             }
         });
 
-        Button vidb = (Button) findViewById(R.id.savedvidbutton);
-        vidb.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
-                openVideo(v);
-            }
-        });
-
-        Button datab = (Button) findViewById(R.id.databutton);
-        datab.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
-                openData(v);
-            }
-        });
-
         Button mapb = (Button) findViewById(R.id.cloudbutton);
         mapb.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
@@ -70,7 +56,7 @@ public class Main extends Activity {
     }
     
     public void beginRecord(View v){
-        Intent intent = new Intent(this, AutoRecording.class);
+        Intent intent = new Intent(this, Home.class);
 
         int RecOptions = 1;
         int SaveOptions = 1;
@@ -106,11 +92,7 @@ public class Main extends Activity {
         startActivity(intent);
     }
 
-    public void openData(View v){
-        Intent intent = new Intent(this, SavedData.class);
-        startActivity(intent);
-        finish();
-    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){

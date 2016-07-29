@@ -40,29 +40,9 @@ public class Home extends Activity {
             }
         });
 
-        Button d = (Button) findViewById(R.id.button6);
-        d.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
-                openData(v);
-            }
-        });
-
-
-//        ////////////////////////test button
-//        Button test = (Button) findViewById(R.id.button8);
-//        test.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v){
-//                test(v);
-//            }
-//        });
-
 
     }
 
-//    private void test(View v) {
-//        Intent intent = new Intent(this, AutoRecording.class);
-//        startActivity(intent);
-//    }
 
 
     private void openVideo(View v) {
@@ -86,11 +66,6 @@ public class Home extends Activity {
 
     private void openSavedVideo(View v) {
         Intent intent = new Intent(this, SavedVideo.class);
-        startActivity(intent);
-    }
-
-    private void openData(View v) {
-        Intent intent = new Intent(this, SavedData.class);
         startActivity(intent);
     }
 }

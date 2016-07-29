@@ -66,7 +66,7 @@ public class Video extends Activity {
     }
 
     private void startRecording(View view) {
-        Intent i = new Intent(this, Recording.class);
+        Intent i = new Intent(this, AutoRecording.class);
 
         startActivity(i);
     }
