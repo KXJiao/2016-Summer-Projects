@@ -52,7 +52,7 @@ public class SavedData extends Activity implements OnMapReadyCallback {
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        TableLayout tbl = (TableLayout) findViewById(R.id.Table);
+        //TableLayout tbl = (TableLayout) findViewById(R.id.Table);
 
 
     }
