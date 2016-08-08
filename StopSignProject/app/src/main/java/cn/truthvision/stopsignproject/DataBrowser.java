@@ -11,6 +11,8 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TabHost;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -21,12 +23,15 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 import cn.truthvision.stopsignlib.DBHandler;
 import cn.truthvision.stopsignlib.VideoInfo;
 
 public class DataBrowser extends Activity implements OnMapReadyCallback {
 
     TabHost tabHost;
+    //ArrayList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +62,22 @@ public class DataBrowser extends Activity implements OnMapReadyCallback {
 
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+
+        Button search = (Button) findViewById(R.id.search);
+        search.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                search(view);
+            }
+        });
+
+
+
+    }
+
+    private void search(View view) {
 
     }
 

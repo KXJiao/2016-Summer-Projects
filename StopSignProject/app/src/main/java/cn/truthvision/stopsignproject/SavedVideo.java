@@ -58,8 +58,8 @@ public class SavedVideo extends Activity {
         //headerRow.addView(index);
         //dataTable.addView(headerRow);
         LinearLayout ll = (LinearLayout)findViewById(R.id.linearLayout23);
-        LinearLayout ll2 = (LinearLayout) findViewById(R.id.linearLayout4);
-        LinearLayout timeLayout = (LinearLayout) findViewById(R.id.linearLayouttime);
+        //LinearLayout ll2 = (LinearLayout) findViewById(R.id.linearLayout4);
+        //LinearLayout timeLayout = (LinearLayout) findViewById(R.id.linearLayouttime);
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
         //ll.addView(dataTable, lp);
@@ -83,7 +83,7 @@ public class SavedVideo extends Activity {
                 }
             });
             ll.addView(myButton, lp);
-            timeLayout.addView(timeButton, lp);
+            //timeLayout.addView(timeButton, lp);
         }
 
         /*for(int x=0; x < myDir.listFiles().length; x++) {
