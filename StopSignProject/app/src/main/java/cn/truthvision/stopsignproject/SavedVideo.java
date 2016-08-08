@@ -69,23 +69,24 @@ public class SavedVideo extends Activity {
         temp = mediaStorageDir.listFiles();
         //frames = myDir.listFiles();
 
-        for(int x = 0; x < mediaStorageDir.listFiles().length; x++){
-            String timeStamp = new SimpleDateFormat("yyyy_MM_dd_HH-mm-ss").format(new Date());
-            Button timeButton = new Button(this);
-            timeButton.setText(""+timeStamp);
-            Button myButton = new Button(this);
-            myButton.setText(temp[x].getName()+"");
-            final String path = temp[x].getAbsolutePath()+"";
-            myButton.setOnClickListener(new View.OnClickListener() {
+        if(mediaStorageDir.listFiles()!= null && mediaStorageDir.listFiles().length>0) {
+            for (int x = 0; x < mediaStorageDir.listFiles().length; x++) {
+                String timeStamp = new SimpleDateFormat("yyyy_MM_dd_HH-mm-ss").format(new Date());
+                Button timeButton = new Button(this);
+                timeButton.setText("" + timeStamp);
+                Button myButton = new Button(this);
+                myButton.setText(temp[x].getName() + "");
+                final String path = temp[x].getAbsolutePath() + "";
+                myButton.setOnClickListener(new View.OnClickListener() {
 
-                public void onClick(View view) {
-                    viewVideo(view, path);
-                }
-            });
-            ll.addView(myButton, lp);
-            //timeLayout.addView(timeButton, lp);
+                    public void onClick(View view) {
+                        viewVideo(view, path);
+                    }
+                });
+                ll.addView(myButton, lp);
+                //timeLayout.addView(timeButton, lp);
+            }
         }
-
         /*for(int x=0; x < myDir.listFiles().length; x++) {
             Button button2 = new Button(this);
             button2.setText(frames[x].getName() + "");
@@ -109,10 +110,24 @@ public class SavedVideo extends Activity {
            }
         });
 
+        Button vid = (Button) findViewById(R.id.button7);
+        vid.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                openData(view);
+            }
+        });
+
     }
     
     public void openSettings(View view){
         Intent intent = new Intent(this, Main.class);
+        startActivity(intent);
+        //finish();
+    }
+
+    public void openData(View view){
+        Intent intent = new Intent(this, SavedData.class);
         startActivity(intent);
         //finish();
     }
