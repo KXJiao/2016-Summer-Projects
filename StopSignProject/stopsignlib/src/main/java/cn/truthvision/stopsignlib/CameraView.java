@@ -69,8 +69,8 @@ public class CameraView extends SurfaceView implements SurfaceHolder.Callback, R
                 //bool detected = DetectSomething(newMat, time);
 
                 //if (detected) {
-                    //1. Go to my buffer to save multiple mats/frames to a file
-                    //SaveEvent();
+                //1. Go to my buffer to save multiple mats/frames to a file
+                //SaveEvent();
 
                 //}
 
