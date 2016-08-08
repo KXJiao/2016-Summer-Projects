@@ -1,6 +1,6 @@
 apply plugin: 'com.android.model.application'
 
-model{
+model {
     android {
         compileSdkVersion 24
         buildToolsVersion "24.0.0"
@@ -15,7 +15,8 @@ model{
         buildTypes {
             release {
                 minifyEnabled false
-                proguardFiles.add(file('proguard-android.txt')) //getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                proguardFiles.add(file('proguard-android.txt'))
+                //getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             }
         }
         ndk {
@@ -29,42 +30,44 @@ model{
             ldLibs.addAll(["android", "EGL", "GLESv2", "dl", "log", "z"])
             stl "gnustl_shared"//"gnustl_static"//"gnustl_shared"//"stlport_static"
         }
-        productFlavors{
-            create("arm"){
-                ndk.with{
+        productFlavors {
+            create("arm") {
+                ndk.with {
                     abiFilters.add("armeabi")
                     File curDir = file('./')
                     curDir = file(curDir.absolutePath)
-                    String libsDir = curDir.absolutePath+"\\src\\main\\jniLibs\\armeabi\\" //"-L" +
+                    String libsDir = curDir.absolutePath + "\\src\\main\\jniLibs\\armeabi\\"
+                    //"-L" +
                     ldLibs.add(libsDir + "libopencv_core.a")
-                    ldLibs.add(libsDir    + "libopencv_imgproc.a")
-                    ldLibs.add(libsDir    +   "libopencv_java.so")
-                    ldLibs.add(libsDir    +   "libopencv_features2d.a")
+                    ldLibs.add(libsDir + "libopencv_imgproc.a")
+                    ldLibs.add(libsDir + "libopencv_java.so")
+                    ldLibs.add(libsDir + "libopencv_features2d.a")
                 }
             }
-            create("arm7"){
+            create("arm7") {
                 ndk.with {
                     abiFilters.add("armeabi-v7a")
-                    File curDir   = file('./')
-                    curDir    =   file(curDir.absolutePath)
-                    String    libsDir = curDir.absolutePath+"\\src\\main\\jniLibs\\armeabi-v7a\\" //"-L"  +
-                    ldLibs.add(libsDir    +   "libopencv_core.a")
-                    ldLibs.add(libsDir    + "libopencv_imgproc.a")
-                    ldLibs.add(libsDir    +   "libopencv_java.so")
-                    ldLibs.add(libsDir    +   "libopencv_features2d.a")
+                    File curDir = file('./')
+                    curDir = file(curDir.absolutePath)
+                    String libsDir = curDir.absolutePath + "\\src\\main\\jniLibs\\armeabi-v7a\\"
+                    //"-L"  +
+                    ldLibs.add(libsDir + "libopencv_core.a")
+                    ldLibs.add(libsDir + "libopencv_imgproc.a")
+                    ldLibs.add(libsDir + "libopencv_java.so")
+                    ldLibs.add(libsDir + "libopencv_features2d.a")
                 }
             }
-            create("x86"){
-                ndk.with{
+            create("x86") {
+                ndk.with {
                     abiFilters.add("x86")
                 }
             }
-            create("mips"){
-                ndk.with{
+            create("mips") {
+                ndk.with {
                     abiFilters.add("mips")
                 }
             }
-            create("fat"){
+            create("fat") {
             }
         }
     }
@@ -74,16 +77,20 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile project(':stopsignlib')
-    compile 'com.android.support:appcompat-v7:24.1.1'
-    compile 'com.android.support:design:24.1.1'
-    compile 'com.google.android.gms:play-services-maps:9.2.1'
     //compile 'com.google.android.gms:play-services-places:9.2.1'
-    compile 'com.google.android.gms:play-services-location:9.2.1'
     //    compile 'com.google.android.gms:play-services-appindexing:9.2.0'
     //    compile 'com.google.android.gms:play-services:9.2.1'
     //    compile 'com.google.android.gms:play-services-ads:9.2.1'
     //    compile 'com.google.android.gms:play-services-auth:9.2.1'
     //    compile 'com.google.android.gms:play-services-gcm:9.2.1'
-    //compile project(':openCVLibrary2482')
+    compile project(':openCVLibrary2482')
+
+
+    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:design:24.1.1'
+    compile 'com.google.android.gms:play-services-maps:9.4.0'
+    compile 'com.google.android.gms:play-services-location:9.4.0'
+    compile 'com.firebase:firebase-client-android:2.3.1'
 }
+
 
