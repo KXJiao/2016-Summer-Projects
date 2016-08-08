@@ -147,8 +147,8 @@ public class Processing extends AppCompatActivity {
 
     }
 
-    public native void FindFastFeatures(long matAddrGr, long matAddrRgba);
-    public native void CannyEdgeDetection(long matAddrGr, long matAddrRgba);
+    //public native void FindFastFeatures(long matAddrGr, long matAddrRgba);
+    //public native void CannyEdgeDetection(long matAddrGr, long matAddrRgba);
     //public native void KalmanFilter_0();
     //public native void estimateRigidTransform_0(long src_nativeObj, long dst_nativeObj, boolean fullAffine);
     public void onActivityResult(int requestCode, int resultCode, Intent data){

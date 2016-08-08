@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class SavedVideo extends Activity {
 
@@ -24,6 +26,7 @@ public class SavedVideo extends Activity {
     private ListView listView;
     private ArrayAdapter<String> adapter;
     File[] frames;
+    File[] temp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +40,8 @@ public class SavedVideo extends Activity {
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, videoArray);
         listView.setAdapter(adapter);*/
         String root = Environment.getExternalStorageDirectory().toString();
-        File myDir = new File(root + "/Pictures/StopSignVidFrames");
+        //File myDir = new File(root + "/Pictures/StopSignVidFrames");
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "StopSignVidStore");
-
         //File mediaStorageDir2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "StopSignVidFrames");
         //TableLayout dataTable = new TableLayout(this);
         ///TableRow headerRow = new TableRow(this);
@@ -55,49 +57,37 @@ public class SavedVideo extends Activity {
         //headerRow.addView(snapshot);
         //headerRow.addView(index);
         //dataTable.addView(headerRow);
-
-        Button datab = (Button) findViewById(R.id.button7);
-        datab.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
-                openData(v);
-            }
-        });
-
-
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                return;
-            }
-        }
-
-
-
         LinearLayout ll = (LinearLayout)findViewById(R.id.linearLayout23);
         //LinearLayout ll2 = (LinearLayout) findViewById(R.id.linearLayout4);
+        //LinearLayout timeLayout = (LinearLayout) findViewById(R.id.linearLayouttime);
         LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 
         //ll.addView(dataTable, lp);
 
 
 
-        File[] temp = mediaStorageDir.listFiles();
-        frames = myDir.listFiles();
+        temp = mediaStorageDir.listFiles();
+        //frames = myDir.listFiles();
 
-        for(int x = 0; x < mediaStorageDir.listFiles().length; x++){
-            Button myButton = new Button(this);
-            myButton.setText(temp[x].getName()+"");
-            final String uri = temp[x].toURI()+"";
-            final String path = temp[x].getAbsolutePath()+"";
-            myButton.setOnClickListener(new View.OnClickListener() {
+        if(mediaStorageDir.listFiles()!= null && mediaStorageDir.listFiles().length>0) {
+            for (int x = 0; x < mediaStorageDir.listFiles().length; x++) {
+                String timeStamp = new SimpleDateFormat("yyyy_MM_dd_HH-mm-ss").format(new Date());
+                Button timeButton = new Button(this);
+                timeButton.setText("" + timeStamp);
+                Button myButton = new Button(this);
+                myButton.setText(temp[x].getName() + "");
+                final String path = temp[x].getAbsolutePath() + "";
+                myButton.setOnClickListener(new View.OnClickListener() {
 
-                public void onClick(View view) {
-                    viewVideo(view, path);
-                }
-            });
-            ll.addView(myButton, lp);
+                    public void onClick(View view) {
+                        viewVideo(view, path);
+                    }
+                });
+                ll.addView(myButton, lp);
+                //timeLayout.addView(timeButton, lp);
+            }
         }
-
-        for(int x=0; x < myDir.listFiles().length; x++) {
+        /*for(int x=0; x < myDir.listFiles().length; x++) {
             Button button2 = new Button(this);
             button2.setText(frames[x].getName() + "");
             final String path = frames[x].getAbsolutePath() + "";
@@ -108,17 +98,24 @@ public class SavedVideo extends Activity {
                 }
             });
 
-            //ll2.addView(button2, lp);
+            ll2.addView(button2, lp);
 
-        }
+        }*/
 
         Button settings = (Button) findViewById(R.id.settingsbutton3);
         settings.setOnClickListener(new View.OnClickListener(){
            @Override
             public void onClick(View view){
-               Toast.makeText(getApplicationContext(), frames[0].getName()+"", Toast.LENGTH_LONG).show();
                openSettings(view);
            }
+        });
+
+        Button vid = (Button) findViewById(R.id.button7);
+        vid.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                openData(view);
+            }
         });
 
     }
@@ -129,16 +126,16 @@ public class SavedVideo extends Activity {
         //finish();
     }
 
+    public void openData(View view){
+        Intent intent = new Intent(this, SavedData.class);
+        startActivity(intent);
+        //finish();
+    }
+
     private void viewVideo(View v, String ur) {
         Intent intent = new Intent(this, VideoPlayer.class);
         intent.putExtra("URI", ur);
         startActivity(intent);
-    }
-
-    public void openData(View v){
-        Intent intent = new Intent(this, SavedData.class);
-        startActivity(intent);
-        finish();
     }
 
 }
