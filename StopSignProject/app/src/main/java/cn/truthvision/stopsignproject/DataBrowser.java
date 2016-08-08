@@ -31,7 +31,7 @@ import cn.truthvision.stopsignlib.VideoInfo;
 public class DataBrowser extends Activity implements OnMapReadyCallback {
 
     TabHost tabHost;
-    //ArrayList
+    //ArrayList<String> list = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
