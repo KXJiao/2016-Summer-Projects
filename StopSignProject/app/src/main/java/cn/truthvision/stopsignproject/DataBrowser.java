@@ -1,9 +1,7 @@
 package cn.truthvision.stopsignproject;
 
 import android.Manifest;
-import android.app.ActionBar;
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -23,9 +21,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
-
-import cn.truthvision.stopsignlib.DBHandler;
+import cn.truthvision.stopsignlib.DBHandlerVideo;
 import cn.truthvision.stopsignlib.VideoInfo;
 
 public class DataBrowser extends Activity implements OnMapReadyCallback {
@@ -108,7 +104,7 @@ public class DataBrowser extends Activity implements OnMapReadyCallback {
         }
 
 
-        DBHandler dbh = new DBHandler(this,null,null,1);
+        DBHandlerVideo dbh = new DBHandlerVideo(this,null,null,1);
 
         if(dbh.count()>0) {
             for (int x = 1; x <= dbh.count(); x++) {
@@ -120,4 +116,12 @@ public class DataBrowser extends Activity implements OnMapReadyCallback {
 
         //map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
     }
+
+
+    private void dataHandler(){
+
+    }
+
 }
+
+

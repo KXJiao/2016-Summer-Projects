@@ -11,21 +11,15 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.Toast;
-
-import com.google.android.gms.maps.model.LatLng;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +28,7 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import cn.truthvision.stopsignlib.DBHandler;
+import cn.truthvision.stopsignlib.DBHandlerVideo;
 import cn.truthvision.stopsignlib.VideoInfo;
 
 public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
@@ -175,10 +169,13 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
             if (location != null) {
 
                 //code for the database
-                DBHandler dbh = new DBHandler(this,null,null,1);
-                VideoInfo vid = new VideoInfo(filename,uri,location.getLatitude(),location.getLongitude());
+                DBHandlerVideo dbh = new DBHandlerVideo(this,null,null,1);
+                        //////////////////////////////NEEDS FIX DUE TO UPDATE TO CLASS: added Violation class, possible fix includes an individual database for Violations\
+                //@TODO: fix the code before being uncommented
+                /*VideoInfo vid = new VideoInfo(filename,uri,location.getLatitude(),location.getLongitude());
                 System.out.println(vid);
                 System.out.println(dbh.addVideo(vid));
+                */
             }
 
             startActivity(i);
