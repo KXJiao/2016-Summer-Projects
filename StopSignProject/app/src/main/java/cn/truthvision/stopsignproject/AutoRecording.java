@@ -172,6 +172,9 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
                 DBHandlerVideo dbh = new DBHandlerVideo(this,null,null,1);
                         //////////////////////////////NEEDS FIX DUE TO UPDATE TO CLASS: added Violation class, possible fix includes an individual database for Violations\
                 //@TODO: fix the code before being uncommented
+
+                // This will be handled by adding each individual Violation to database regardless of parent video, to be sorted later
+
                 /*VideoInfo vid = new VideoInfo(filename,uri,location.getLatitude(),location.getLongitude());
                 System.out.println(vid);
                 System.out.println(dbh.addVideo(vid));

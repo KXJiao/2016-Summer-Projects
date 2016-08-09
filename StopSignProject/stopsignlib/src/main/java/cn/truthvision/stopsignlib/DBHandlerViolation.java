@@ -7,6 +7,8 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.sql.Time;
+
 /**
  * Created by TV_Laptop_01 on 8/9/2016.
  */
@@ -19,7 +21,13 @@ public class DBHandlerViolation extends SQLiteOpenHelper {
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_FILENAME = "filename";
     public static final String COLUMN_URI = "uri";
-    public static final String COLUMN_VIOLATION = "violation";
+    public static final String COLUMN_TIME = "time";
+    public static final String COLUMN_HR = "hour";
+    public static final String COLUMN_MIN = "minute";
+    public static final String COLUMN_SEC = "second";
+    public static final String COLUMN_DESC = "description";
+
+
 
     private SQLiteDatabase mDatabase;
 
@@ -31,7 +39,7 @@ public class DBHandlerViolation extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_VIDEOS_TABLE = "CREATE TABLE " + TABLE_VIOLATIONS + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," + COLUMN_FILENAME + " TEXT," + COLUMN_URI + " TEXT" + ")";
+        String CREATE_VIDEOS_TABLE = "CREATE TABLE " + TABLE_VIOLATIONS + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," + COLUMN_FILENAME + " TEXT," + COLUMN_URI + " TEXT" + COLUMN_TIME + " REAL," + COLUMN_HR + " INTEGER," + COLUMN_MIN + " INTEGER," + COLUMN_SEC + " INTEGER," + COLUMN_DESC + " TEXT" +  ")";
         db.execSQL(CREATE_VIDEOS_TABLE);
         mDatabase = db;
     }
@@ -43,11 +51,21 @@ public class DBHandlerViolation extends SQLiteOpenHelper {
     }
 
     //Methods
-    public boolean addVideo(VideoInfo video) {
+    public boolean addVideo(VideoInfo video, Violation v) {
 
         ContentValues values = new ContentValues();
         values.put(COLUMN_FILENAME, video.getFileName());
         values.put(COLUMN_URI, video.getURI());
+        values.put(COLUMN_TIME, v.getTime().getTime());
+        long time = Time.valueOf(v.getVidTime()).getTime();
+        int hr = time/3600;
+
+
+        values.put(COLUMN_HR, );
+        values.put(COLUMN_MIN, v);
+        values.put(COLUMN_SEC, v);
+        values.put(COLUMN_DESC, v.getDesc());
+
         //values.put(COLUMN_LAT, video.getLat());
         //values.put(COLUMN_LNG, video.getLng());
 
