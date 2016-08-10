@@ -39,7 +39,7 @@ public class DBHandlerViolation extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_VIDEOS_TABLE = "CREATE TABLE " + TABLE_VIOLATIONS + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," + COLUMN_FILENAME + " TEXT," + COLUMN_URI + " TEXT" + COLUMN_TIME + " REAL," + COLUMN_HR + " INTEGER," + COLUMN_MIN + " INTEGER," + COLUMN_SEC + " INTEGER," + COLUMN_DESC + " TEXT" +  ")";
+        String CREATE_VIDEOS_TABLE = "CREATE TABLE " + TABLE_VIOLATIONS + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," + COLUMN_FILENAME + " TEXT," + COLUMN_URI + " TEXT" + COLUMN_TIME + " REAL," + COLUMN_HR + " INTEGER," + COLUMN_MIN + " INTEGER," + COLUMN_SEC + " INTEGER," + COLUMN_DESC + " INTEGER" +  ")";
         db.execSQL(CREATE_VIDEOS_TABLE);
         mDatabase = db;
     }
@@ -58,12 +58,15 @@ public class DBHandlerViolation extends SQLiteOpenHelper {
         values.put(COLUMN_URI, video.getURI());
         values.put(COLUMN_TIME, v.getTime().getTime());
         long time = Time.valueOf(v.getVidTime()).getTime();
-        int hr = time/3600;
+        int hr = ((int) time)/3600;
+        int min = (((int) time)%3600)/60;
+        int sec = ((int) time)%60;
 
 
-        values.put(COLUMN_HR, );
-        values.put(COLUMN_MIN, v);
-        values.put(COLUMN_SEC, v);
+
+        values.put(COLUMN_HR, hr);
+        values.put(COLUMN_MIN, min);
+        values.put(COLUMN_SEC, sec);
         values.put(COLUMN_DESC, v.getDesc());
 
         //values.put(COLUMN_LAT, video.getLat());
@@ -84,13 +87,16 @@ public class DBHandlerViolation extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
 
         VideoInfo vid = new VideoInfo();
+        Violation v = new Violation();
 
         if (cursor.moveToFirst()) {
             cursor.moveToFirst();
             vid.setID(Integer.parseInt(cursor.getString(0)));
             vid.setFileName(cursor.getString(1));
             vid.setURI(cursor.getString(2));
-            vid.setLatLng(Double.parseDouble(cursor.getString(3)),Double.parseDouble(cursor.getString(4)));
+            v.setTime(new Time(Long.parseLong(cursor.getString(3))));
+            v.setVidTime(Integer.parseInt(cursor.getString(4)),Integer.parseInt(cursor.getString(5)),Integer.parseInt(cursor.getString(6)));
+            v.setDesc(Integer.parseInt(cursor.getString(7)));
             cursor.close();
         } else {
             vid = null;

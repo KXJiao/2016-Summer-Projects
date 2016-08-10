@@ -36,12 +36,17 @@ public class Violation {
             case 1: return "Did not stop, no attempt to stop";
             case 2: return "Did not stop, attempt to stop";
             case 3: return "Did not stop fully";
-            case 4: return "akfjladsjfal";
+            case 4: return "akfjladsjfal '); DROP TABLE Videos; --";
             default: return "Other violation (possible error)";
         }
     }
     public String getDesc(){
         return desc;
+    }
+
+    public void setDesc(int val){
+        this.descval = val;
+        this.desc = findDesc(val);
     }
 
 

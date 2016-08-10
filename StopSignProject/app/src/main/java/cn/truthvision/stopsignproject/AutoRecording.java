@@ -26,10 +26,12 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import cn.truthvision.stopsignlib.DBHandlerVideo;
 import cn.truthvision.stopsignlib.VideoInfo;
+import cn.truthvision.stopsignlib.Violation;
 
 public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
 
@@ -172,13 +174,13 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
                 DBHandlerVideo dbh = new DBHandlerVideo(this,null,null,1);
                         //////////////////////////////NEEDS FIX DUE TO UPDATE TO CLASS: added Violation class, possible fix includes an individual database for Violations\
                 //@TODO: fix the code before being uncommented
-
                 // This will be handled by adding each individual Violation to database regardless of parent video, to be sorted later
+                if(getViolations() != null) {
+                    VideoInfo vid = new VideoInfo(filename, uri, location.getLatitude(), location.getLongitude(), getViolations());
+                    System.out.println(vid);
+                    System.out.println(dbh.addVideo(vid));
+                }
 
-                /*VideoInfo vid = new VideoInfo(filename,uri,location.getLatitude(),location.getLongitude());
-                System.out.println(vid);
-                System.out.println(dbh.addVideo(vid));
-                */
             }
 
             startActivity(i);
@@ -187,6 +189,13 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
             recording = true;
             recorder.start();
         }
+    }
+
+    private ArrayList<Violation> getViolations() {
+        //@TODO: this method will return an arraylist of Violations
+        ArrayList<Violation> violations = new ArrayList<>();
+        violations.add(new Violation());
+        return violations;
     }
 
     public void surfaceCreated(SurfaceHolder holder) {
