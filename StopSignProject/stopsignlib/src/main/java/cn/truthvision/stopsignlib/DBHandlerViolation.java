@@ -156,9 +156,8 @@ public class DBHandlerViolation extends SQLiteOpenHelper {
         String sql = "SELECT COUNT(*) FROM " + TABLE_VIOLATIONS;
 
         SQLiteDatabase db = this.getWritableDatabase();
-        long numRows = DatabaseUtils.longForQuery(db, "SELECT COUNT(*) FROM videos", null);
 
-        return numRows;
+        return DatabaseUtils.longForQuery(db, "SELECT COUNT(*) FROM videos", null);
     }
 
 }

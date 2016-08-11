@@ -89,7 +89,17 @@ public class VideoInfo {
         return _filename + "(" + _uri + "), [" +_lat + ", " + _lng + "]";
     }
 
+
+
     //@TODO: Methods relating to Violation class (getter, setter, details)
+
+    public ArrayList<Violation> getViolations() {
+        return _violations;
+    }
+
+    public void setViolations(ArrayList<Violation> violations) {
+        this._violations = violations;
+    }
 
 
 }

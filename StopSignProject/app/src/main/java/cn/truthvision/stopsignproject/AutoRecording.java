@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import cn.truthvision.stopsignlib.DBHandlerVideo;
+import cn.truthvision.stopsignlib.DBHandlerViolation;
 import cn.truthvision.stopsignlib.VideoInfo;
 import cn.truthvision.stopsignlib.Violation;
 
@@ -46,6 +47,7 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
     SurfaceHolder holder;
     boolean recording = false;
     Button stopper;
+    private ArrayList<VideoInfo> snips;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,24 +81,7 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
         holder = cameraView.getHolder();
         holder.addCallback(this);
         holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-
-
-
-        /////////////////////////////////////////////CODE FOR STREAMING VIDEO////////////////////////////////
-        String hostname = "spam.virus.com";
-        int port = 666;
-        Socket sock = null;
-        try {
-            sock = new Socket(InetAddress.getByName(hostname),port);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        ParcelFileDescriptor pfd = ParcelFileDescriptor.fromSocket(sock);
-
-
-
-        /////////////////////////////////////////////////////////////////////////////////////////////////////
+        
 
         stopper = (Button) findViewById(R.id.start);
         stopper.setOnClickListener(new View.OnClickListener() {
@@ -172,11 +157,11 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
 
                 //code for the database
                 DBHandlerVideo dbh = new DBHandlerVideo(this,null,null,1);
-                        //////////////////////////////NEEDS FIX DUE TO UPDATE TO CLASS: added Violation class, possible fix includes an individual database for Violations\
-                //@TODO: fix the code before being uncommented
+                //@TODO:
                 // This will be handled by adding each individual Violation to database regardless of parent video, to be sorted later
-                if(getViolations() != null) {
-                    VideoInfo vid = new VideoInfo(filename, uri, location.getLatitude(), location.getLongitude(), getViolations());
+                ArrayList<Violation> temp = getViolations();
+                if(temp != null) {
+                    VideoInfo vid = new VideoInfo(filename, uri, location.getLatitude(), location.getLongitude(), temp);
                     System.out.println(vid);
                     System.out.println(dbh.addVideo(vid));
                 }
@@ -194,7 +179,12 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
     private ArrayList<Violation> getViolations() {
         //@TODO: this method will return an arraylist of Violations
         ArrayList<Violation> violations = new ArrayList<>();
-        violations.add(new Violation());
+        for(int x = 0; x < snips.size(); x++){ // snips is list of Video snippets
+            ArrayList<Violation> temp = snips.get(x).getViolations();
+            for(int y = 0; y < temp.size(); y++){// traverses the list of violations in each snippet
+                violations.add(temp.get(y));
+            }
+        }
         return violations;
     }
 
