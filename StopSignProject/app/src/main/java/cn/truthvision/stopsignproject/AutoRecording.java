@@ -315,12 +315,18 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
 
         String timeStamp = new SimpleDateFormat("yyyy_MM_dd_HH-mm-ss").format(new Date());
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "StopSignVidStore");
+
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return;
+            }
+        }
         String filepath = mediaStorageDir.getPath();
 
 
         filename = timeStamp;
-        uri = filepath + "/" + "Video" + timeStamp+ ".mp4";
-        recorder.setOutputFile(filepath + "/" + "Video" + timeStamp+".mp4");
+        uri = filepath + "/"  + timeStamp+ ".mp4";
+        recorder.setOutputFile(filepath + "/" + timeStamp+".mp4");
         recorder.setMaxDuration(500000000); // 500000 seconds
         recorder.setMaxFileSize(2000000000); // Approximately 2000 megabytes
     }
@@ -359,13 +365,6 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
                 return;
             }
             Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
