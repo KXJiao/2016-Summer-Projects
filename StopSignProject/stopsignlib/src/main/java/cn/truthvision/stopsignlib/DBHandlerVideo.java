@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteStatement;
 /**
  * Created by TV_Laptop_01 on 7/25/2016.
  */
-public class DBHandler extends SQLiteOpenHelper {
+public class DBHandlerVideo extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "VideoDB.db";
@@ -22,9 +22,11 @@ public class DBHandler extends SQLiteOpenHelper {
     public static final String COLUMN_URI = "uri";
     public static final String COLUMN_LAT = "lat";
     public static final String COLUMN_LNG = "lng";
+    //public static final String COLUMN_VIOLATION = "violation";
+
     private SQLiteDatabase mDatabase;
 
-    public DBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public DBHandlerVideo(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
 
