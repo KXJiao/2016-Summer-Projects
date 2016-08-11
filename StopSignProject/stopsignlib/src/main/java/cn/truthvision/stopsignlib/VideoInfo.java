@@ -4,6 +4,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 /**
  * Created by TV_Laptop_01 on 7/25/2016.
@@ -15,24 +16,27 @@ public class VideoInfo {
     private String _uri;
     private double _lat;
     private double _lng;
+    private ArrayList<Violation> _violations;
 
     public VideoInfo() {
 
     }
 
-    public VideoInfo(int id, String filename, String uri, double lat, double lng) {
+    public VideoInfo(int id, String filename, String uri, double lat, double lng, ArrayList<Violation> violations) {
         this._id = id;
         this._filename = filename;
         this._uri = uri;
         this._lat = lat;
         this._lng = lng;
+        this._violations = violations;
     }
 
-    public VideoInfo(String filename, String uri, double lat, double lng) {
+    public VideoInfo(String filename, String uri, double lat, double lng, ArrayList<Violation> violations) {
         this._filename = filename;
         this._uri = uri;
         this._lat = lat;
         this._lng = lng;
+        this._violations = violations;
     }
 
     public void setID(int id) {
@@ -84,4 +88,18 @@ public class VideoInfo {
     public String toString(){
         return _filename + "(" + _uri + "), [" +_lat + ", " + _lng + "]";
     }
+
+
+
+    //@TODO: Methods relating to Violation class (getter, setter, details)
+
+    public ArrayList<Violation> getViolations() {
+        return _violations;
+    }
+
+    public void setViolations(ArrayList<Violation> violations) {
+        this._violations = violations;
+    }
+
+
 }
