@@ -61,7 +61,7 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
     private int SaveOptions = 1;
     private int DBOptions = 1;
 
-    CameraView view;
+    cn.truthvision.stopsignproject.CameraView view;
 
     private VideoCapture Camera;
     String uri;
@@ -88,19 +88,6 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
                 case LoaderCallbackInterface.SUCCESS:{
                     Log.i("StopSignProject", "OpenCV Loaded Successfully");
                     //setContentView(R.layout.activity_recording2);
-                   // System.loadLibrary("opencv_java"); //load opencv_java li
-                    //System.loadLibrary("native_sample");
-                    //System.loadLibrary("native_camera_r4.4.0");
-                    //System.loadLibrary("native_camera_r4.3.0");
-                    //System.loadLibrary("native_camera_r4.2.0");
-                    //System.loadLibrary("native_camera_r4.1.1");
-                    //System.loadLibrary("native_camera_r4.0.3");
-                    //System.loadLibrary("native_camera_r4.0.0");
-                    //System.loadLibrary("native_camera_r3.0.1");
-                    //System.loadLibrary("native_camera_r2.3.3");
-                    //System.loadLibrary("native_camera_r2.2.0");
-
-
 
                     mCamera = new VideoCapture(Highgui.CV_CAP_ANDROID_GREY_FRAME);
                     if (mCamera.isOpened())
@@ -140,13 +127,6 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
@@ -171,7 +151,7 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
     @Override
     public void onResume(){
         super.onResume();
-        OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_8, this, mLoaderCallback);
+        //OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_8, this, mLoaderCallback);
     }
    public void run() throws IOException{
         while (true) {
