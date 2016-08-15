@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.truthvision.stopsignproject" >
+    package="cn.truthvision.stopsignproject">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -32,14 +32,14 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
 
         <!-- "@style/AppTheme" -->
 
         <activity
             android:name=".Splash"
             android:label="Splash Screen"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,7 +48,7 @@
         </activity>
         <activity
             android:name=".Home"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -58,7 +58,7 @@
         <activity
             android:name=".Video"
             android:label="Video"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -67,7 +67,7 @@
         </activity>
         <activity
             android:name=".SavedVideo"
-            android:label="Saved Videos" >
+            android:label="Saved Videos">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -89,7 +89,7 @@
         <activity
             android:name=".Main"
             android:label="@string/home_button"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -106,7 +106,7 @@
 
         <activity
             android:name=".Recording"
-            android:label="Recording" >
+            android:label="Recording">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -120,7 +120,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".VideoPlayer"
-            android:label="Video Player" >
+            android:label="Video Player">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -131,6 +131,7 @@
             android:name=".SavedData"
             android:label="Saved Data" />
         <activity android:name=".DataBrowser" />
+        <activity android:name=".AdvancedSettings"></activity>
     </application>
 
 </manifest>

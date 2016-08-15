@@ -34,7 +34,7 @@ public class Main extends Activity {
         Button mapb = (Button) findViewById(R.id.cloudbutton);
         mapb.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
-
+                openAdvSettings(v);
             }
         });
 
@@ -54,7 +54,12 @@ public class Main extends Activity {
 
 
     }
-    
+
+    private void openAdvSettings(View v) {
+        Intent i = new Intent(this, AdvancedSettings.class);
+        startActivity(i);
+    }
+
     public void beginRecord(View v){
         Intent intent = new Intent(this, Home.class);
 

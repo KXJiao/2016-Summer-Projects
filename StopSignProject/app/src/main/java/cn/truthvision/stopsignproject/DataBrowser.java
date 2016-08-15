@@ -8,10 +8,14 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
+import android.support.v7.app.ActionBar.LayoutParams;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -20,6 +24,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import cn.truthvision.stopsignlib.DBHandlerVideo;
 import cn.truthvision.stopsignlib.VideoInfo;
@@ -69,8 +77,33 @@ public class DataBrowser extends Activity implements OnMapReadyCallback {
             }
         });
 
+/*      @TODO: converting this code to work for the info pulled from the Videos and Violations database
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "StopSignVidStore");
+        LinearLayout ll = (LinearLayout)findViewById(R.id.linearLayout23);
+        LayoutParams lp = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
 
 
+        File[] temp = mediaStorageDir.listFiles();
+        if(mediaStorageDir.listFiles()!= null && mediaStorageDir.listFiles().length>0) {
+            for (int x = 0; x < mediaStorageDir.listFiles().length; x++) {
+                String timeStamp = new SimpleDateFormat("yyyy_MM_dd_HH-mm-ss").format(new Date());
+                Button timeButton = new Button(this);
+                timeButton.setText("" + timeStamp);
+                Button myButton = new Button(this);
+                myButton.setText(temp[x].getName() + "");
+                final String path = temp[x].getAbsolutePath() + "";
+                myButton.setOnClickListener(new View.OnClickListener() {
+
+                    public void onClick(View view) {
+                        //
+                    }
+                });
+                ll.addView(myButton, lp);
+            }
+        }
+
+
+*/
     }
 
     private void search(View view) {

@@ -67,5 +67,9 @@ public class Violation {
         this.min = min;
         this.sec = sec;
     }
+    @Override
+    public String toString(){
+        return getTime() + ", @" + getVidTime() + " (" + desc + ")";
+    }
 
 }
