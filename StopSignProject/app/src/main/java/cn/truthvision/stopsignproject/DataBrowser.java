@@ -4,6 +4,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -27,10 +29,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import cn.truthvision.stopsignlib.DBHandlerVideo;
+import cn.truthvision.stopsignlib.DBHandlerViolation;
 import cn.truthvision.stopsignlib.VideoInfo;
+import cn.truthvision.stopsignlib.Violation;
 
 public class DataBrowser extends Activity implements OnMapReadyCallback {
 
@@ -77,10 +82,48 @@ public class DataBrowser extends Activity implements OnMapReadyCallback {
             }
         });
 
+        //Retrieves Video data as stored on database
+
+        String query = "SELECT * FROM videos";
+        DBHandlerVideo dbh = new DBHandlerVideo(this,null,null,1);
+        ArrayList<VideoInfo> vidarr = new ArrayList<>();
+        if(dbh.count()>0) {
+            SQLiteDatabase sql = dbh.getWritableDatabase();
+            Cursor cursor = sql.rawQuery(query, null);
+            cursor.moveToFirst();
+            try {
+                while (cursor.moveToNext()) {
+                    vidarr.add(new VideoInfo(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), Double.parseDouble(cursor.getString(3)), Double.parseDouble(cursor.getString(4))));
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+
+        String vquery = "SELECT * FROM violations";
+        DBHandlerViolation dbv = new DBHandlerViolation(this,null,null,1);
+        if(dbv.count()>0){
+            SQLiteDatabase sql = dbv.getWritableDatabase();
+            Cursor cursor = sql.rawQuery(vquery, null);
+            cursor.moveToFirst();
+            try {
+                while(cursor.moveToNext()) {
+                    //@TODO: traverse violation database and adds Violations to videos in the list
+                    
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+
+
+
 /*      @TODO: converting this code to work for the info pulled from the Videos and Violations database
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "StopSignVidStore");
         LinearLayout ll = (LinearLayout)findViewById(R.id.linearLayout23);
         LayoutParams lp = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
+
+
 
 
         File[] temp = mediaStorageDir.listFiles();

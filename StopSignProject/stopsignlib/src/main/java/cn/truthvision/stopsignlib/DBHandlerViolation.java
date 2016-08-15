@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.sql.Time;
+import java.util.ArrayList;
 
 /**
  * Created by TV_Laptop_01 on 8/9/2016.
@@ -51,7 +52,7 @@ public class DBHandlerViolation extends SQLiteOpenHelper {
     }
 
     //Methods
-    public boolean addVideo(VideoInfo video, Violation v) {
+    public boolean addEntry(VideoInfo video, Violation v) { //adds a violation associated with video
 
         ContentValues values = new ContentValues();
         values.put(COLUMN_FILENAME, video.getFileName());
@@ -79,7 +80,7 @@ public class DBHandlerViolation extends SQLiteOpenHelper {
         return true;
     }
 
-    public VideoInfo findVideo(String filename) {
+    public VideoInfo findViolationVid(String filename) { // This method will never be used
         String query = "Select * FROM " + TABLE_VIOLATIONS + " WHERE " + COLUMN_FILENAME + " =  \"" + filename + "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -98,6 +99,11 @@ public class DBHandlerViolation extends SQLiteOpenHelper {
             v.setVidTime(Integer.parseInt(cursor.getString(4)),Integer.parseInt(cursor.getString(5)),Integer.parseInt(cursor.getString(6)));
             v.setDesc(Integer.parseInt(cursor.getString(7)));
             cursor.close();
+            ArrayList<Violation> temp = vid.getViolations();
+            if(temp == null)
+                temp = new ArrayList<Violation>();
+            temp.add(v);
+            vid.setViolations(temp);
         } else {
             vid = null;
         }
@@ -105,7 +111,27 @@ public class DBHandlerViolation extends SQLiteOpenHelper {
         return vid;
     }
 
-    public boolean deleteVideo(String filename) {
+    public Violation findViolation(int hour, int min, int sec) { // bad method but still needed
+        String query = "Select * FROM " + TABLE_VIOLATIONS + " WHERE " + COLUMN_HR + " =  \"" + hour + "\"" + " AND " + COLUMN_MIN + " = \"" + min + "\"" + " AND " + COLUMN_SEC + " = \"" + sec + "\"";
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        Violation v = new Violation();
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            v.setTime(new Time(Long.parseLong(cursor.getString(3))));
+            v.setVidTime(Integer.parseInt(cursor.getString(4)),Integer.parseInt(cursor.getString(5)),Integer.parseInt(cursor.getString(6)));
+            v.setDesc(Integer.parseInt(cursor.getString(7)));
+            cursor.close();
+        } else {
+            v = null;
+        }
+        db.close();
+        return v;
+    }
+
+    public boolean deleteVideo(String filename) { // should remain the same
 
         boolean result = false;
 
@@ -129,28 +155,29 @@ public class DBHandlerViolation extends SQLiteOpenHelper {
         return result;
     }
 
-    public VideoInfo findID(int id) {
-        String query = "Select * FROM " + TABLE_VIOLATIONS + " WHERE " + COLUMN_ID+ " =  \"" + id + "\"";
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        Cursor cursor = db.rawQuery(query, null);
-
-        VideoInfo vid = new VideoInfo();
-
-        if (cursor.moveToFirst()) {
-            cursor.moveToFirst();
-            vid.setID(Integer.parseInt(cursor.getString(0)));
-            vid.setFileName(cursor.getString(1));
-            vid.setURI(cursor.getString(2));
-            vid.setLatLng(Double.parseDouble(cursor.getString(3)),Double.parseDouble(cursor.getString(4)));
-            cursor.close();
-        } else {
-            vid = null;
-        }
-        db.close();
-        return vid;
-    }
+//    public Violation findID(int id) {
+//        String query = "Select * FROM " + TABLE_VIOLATIONS + " WHERE " + COLUMN_ID+ " =  \"" + id + "\"";
+//
+//        SQLiteDatabase db = this.getWritableDatabase();
+//
+//        Cursor cursor = db.rawQuery(query, null);
+//
+//
+//        Violation v = new Violation();
+//
+//        if (cursor.moveToFirst()) {
+//            cursor.moveToFirst();
+//            v.setID(Integer.parseInt(cursor.getString(0)));
+//            vid.setFileName(cursor.getString(1));
+//            vid.setURI(cursor.getString(2));
+//            vid.setLatLng(Double.parseDouble(cursor.getString(3)),Double.parseDouble(cursor.getString(4)));
+//            cursor.close();
+//        } else {
+//            vid = null;
+//        }
+//        db.close();
+//        return vid;
+//    }
 
     public long count() {
         String sql = "SELECT COUNT(*) FROM " + TABLE_VIOLATIONS;

@@ -39,6 +39,23 @@ public class VideoInfo {
         this._violations = violations;
     }
 
+    public VideoInfo(int id, String filename, String uri, double lat, double lng) {
+        this._id = id;
+        this._filename = filename;
+        this._uri = uri;
+        this._lat = lat;
+        this._lng = lng;
+        this._violations = new ArrayList<>();
+    }
+
+    public VideoInfo(String filename, String uri, double lat, double lng) {
+        this._filename = filename;
+        this._uri = uri;
+        this._lat = lat;
+        this._lng = lng;
+        this._violations = new ArrayList<>();
+    }
+
     public void setID(int id) {
         this._id = id;
     }
