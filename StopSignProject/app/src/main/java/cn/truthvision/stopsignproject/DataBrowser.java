@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.support.v7.app.ActionBar.LayoutParams;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,6 +29,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.File;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -109,13 +111,36 @@ public class DataBrowser extends Activity implements OnMapReadyCallback {
             try {
                 while(cursor.moveToNext()) {
                     //@TODO: traverse violation database and adds Violations to videos in the list
-                    
+                    int found = -1;
+                    ArrayList<Violation> temp = new ArrayList<>();
+                    for(int x = 0; x<vidarr.size(); x++){
+                        if(vidarr.get(x).getFileName().equals(cursor.getString(1))){
+                            temp = vidarr.get(x).getViolations();
+                            temp.add(new Violation(new Time(Long.parseLong(cursor.getString(3))),Integer.parseInt(cursor.getString(4)),Integer.parseInt(cursor.getString(5)),Integer.parseInt(cursor.getString(6)),Integer.parseInt(cursor.getString(7))));
+                            found = x;
+                            break;
+                        }
+                    }
+                    if(found>=0) {
+                        VideoInfo set = vidarr.get(found);
+                        set.setViolations(temp);
+                        vidarr.set(found, set);
+                    }
+
                 }
             } finally {
                 cursor.close();
             }
         }
 
+
+        //adds the videos to the linear layout
+
+        LinearLayout ll = new LinearLayout(this);
+        for(int x = 0; x<vidarr.size(); x++){
+            TextView txt = new TextView(this);
+            txt.setText(vidarr.get(x).toString());
+        }
 
 
 /*      @TODO: converting this code to work for the info pulled from the Videos and Violations database
