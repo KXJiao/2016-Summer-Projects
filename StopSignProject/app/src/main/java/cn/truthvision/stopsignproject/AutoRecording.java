@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.location.Criteria;
 import android.location.Location;
@@ -49,6 +51,7 @@ import java.util.Queue;
 import java.util.Random;
 
 import cn.truthvision.stopsignlib.DBHandlerVideo;
+import cn.truthvision.stopsignlib.DBHandlerViolation;
 import cn.truthvision.stopsignlib.VideoInfo;
 import cn.truthvision.stopsignlib.Violation;
 
@@ -366,6 +369,8 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
                 //System.out.println(FrameBuffer.size()+" Frames");
                 //Toast.makeText(this, vid.toString(), Toast.LENGTH_LONG).show();
                 //Toast.makeText(this, "This is: " + latlng.toString(), Toast.LENGTH_LONG).show();
+
+
             }
 
 
@@ -386,11 +391,17 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
     private ArrayList<Violation> getViolations() {
         //@TODO: this method will return an arraylist of Violations
         ArrayList<Violation> violations = new ArrayList<>();
+        DBHandlerViolation dbv = new DBHandlerViolation(this,null,null,1);
+        SQLiteDatabase sql = dbv.getWritableDatabase();
+        String query = "SELECT * FROM violations";
+
         for(int x = 0; x < snips.size(); x++){ // snips is list of Video snippets
-            //ArrayList<Violation> temp = snips.get(x).getViolations();
-           /* for(int y = 0; y < temp.size(); y++){// traverses the list of violations in each snippet
-                violations.add(temp.get(y));
-            }*/
+            VideoInfo tempvid = snips.get(x);
+            Cursor cursor = sql.rawQuery(query, null);
+            //ArrayList<Violation> temp = new ArrayList<>();
+           //for(int y = 0; y < tempvid.size(); y++){// traverses the list of violations in each snippet
+            //    violations.add(temp.get(y));
+            //}
         }
         return violations;
     }
