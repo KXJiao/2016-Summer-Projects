@@ -131,7 +131,8 @@
             android:name=".SavedData"
             android:label="Saved Data" />
         <activity android:name=".DataBrowser" />
-        <activity android:name=".AdvancedSettings"></activity>
+        <activity android:name=".AdvancedSettings" />
+        <activity android:name=".Testing"></activity>
     </application>
 
 </manifest>
