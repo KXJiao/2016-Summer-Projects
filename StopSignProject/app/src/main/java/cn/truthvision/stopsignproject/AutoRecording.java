@@ -398,10 +398,11 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
         for(int x = 0; x < snips.size(); x++){ // snips is list of Video snippets
             VideoInfo tempvid = snips.get(x);
             Cursor cursor = sql.rawQuery(query, null);
-            //ArrayList<Violation> temp = new ArrayList<>();
-           //for(int y = 0; y < tempvid.size(); y++){// traverses the list of violations in each snippet
-            //    violations.add(temp.get(y));
-            //}
+            ArrayList<Violation> temp = tempvid.getViolations();
+            for(int y = 0; y < tempvid.getViolations().size(); y++){// traverses the list of violations in each snippet
+                violations.add(temp.get(y));
+            }
+            cursor.close();
         }
         return violations;
     }

@@ -136,10 +136,11 @@ public class DataBrowser extends Activity implements OnMapReadyCallback {
 
         //adds the videos to the linear layout
 
-        LinearLayout ll = new LinearLayout(this);
+        LinearLayout ll = (LinearLayout) findViewById(R.id.linlay);
         for(int x = 0; x<vidarr.size(); x++){
             TextView txt = new TextView(this);
             txt.setText(vidarr.get(x).toString());
+            ll.addView(txt);
         }
 
 

@@ -40,7 +40,7 @@ public class DBHandlerViolation extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_VIDEOS_TABLE = "CREATE TABLE " + TABLE_VIOLATIONS + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," + COLUMN_FILENAME + " TEXT," + COLUMN_URI + " TEXT" + COLUMN_TIME + " REAL," + COLUMN_HR + " INTEGER," + COLUMN_MIN + " INTEGER," + COLUMN_SEC + " INTEGER," + COLUMN_DESC + " INTEGER" +  ")";
+        String CREATE_VIDEOS_TABLE = "CREATE TABLE " + TABLE_VIOLATIONS + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," + COLUMN_FILENAME + " TEXT," + COLUMN_URI + " TEXT," + COLUMN_TIME + " REAL," + COLUMN_HR + " INTEGER," + COLUMN_MIN + " INTEGER," + COLUMN_SEC + " INTEGER," + COLUMN_DESC + " INTEGER" +  ")";
         db.execSQL(CREATE_VIDEOS_TABLE);
         mDatabase = db;
     }
@@ -64,6 +64,7 @@ public class DBHandlerViolation extends SQLiteOpenHelper {
         int sec = ((int) time)%60;
 
 
+        System.out.println(time);
 
         values.put(COLUMN_HR, hr);
         values.put(COLUMN_MIN, min);

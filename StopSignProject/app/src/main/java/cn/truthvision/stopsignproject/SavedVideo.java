@@ -53,7 +53,7 @@ public class SavedVideo extends Activity {
 
 
         temp = mediaStorageDir.listFiles();
-        //frames = myDir.listFiles();
+
 
         if(mediaStorageDir.listFiles()!= null && mediaStorageDir.listFiles().length>0) {
             for (int x = 0; x < mediaStorageDir.listFiles().length; x++) {
