@@ -132,7 +132,8 @@
             android:label="Saved Data" />
         <activity android:name=".DataBrowser" />
         <activity android:name=".AdvancedSettings" />
-        <activity android:name=".Testing"></activity>
+        <activity android:name=".Testing" />
+        <activity android:name=".ViolationsList"></activity>
     </application>
 
 </manifest>

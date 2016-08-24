@@ -3,6 +3,7 @@ package cn.truthvision.stopsignproject;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -116,7 +117,15 @@ public class DataBrowser extends Activity implements OnMapReadyCallback {
                     for(int x = 0; x<vidarr.size(); x++){
                         if(vidarr.get(x).getFileName().equals(cursor.getString(1))){
                             temp = vidarr.get(x).getViolations();
-                            temp.add(new Violation(new Time(Long.parseLong(cursor.getString(3))),Integer.parseInt(cursor.getString(4)),Integer.parseInt(cursor.getString(5)),Integer.parseInt(cursor.getString(6)),Integer.parseInt(cursor.getString(7))));
+                            Time a = new Time(Long.parseLong(cursor.getString(3)));
+                            int b = Integer.parseInt(cursor.getString(4));
+                            int c = Integer.parseInt(cursor.getString(5));
+                            int d = Integer.parseInt(cursor.getString(6));
+                            System.out.println(cursor.getString(7));
+                            int e = Integer.parseInt(cursor.getString(7));
+                            Violation addedViolation = new Violation(a, b, c, d, e);
+                            System.out.println(addedViolation.toString());
+                            temp.add(addedViolation);
                             found = x;
                             break;
                         }
@@ -138,9 +147,16 @@ public class DataBrowser extends Activity implements OnMapReadyCallback {
 
         LinearLayout ll = (LinearLayout) findViewById(R.id.linlay);
         for(int x = 0; x<vidarr.size(); x++){
-            TextView txt = new TextView(this);
-            txt.setText(vidarr.get(x).toString());
-            ll.addView(txt);
+            Button b = new Button(this);
+            b.setText(vidarr.get(x).toString());
+            final String tempname = vidarr.get(x).getFileName();
+            final ArrayList<VideoInfo> tempvidlist = vidarr;
+            b.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v){
+                    test(v, tempname);
+                }
+            });
+            ll.addView(b);
         }
 
 
@@ -173,6 +189,12 @@ public class DataBrowser extends Activity implements OnMapReadyCallback {
 
 
 */
+    }
+
+    private void test(View v, String name) {
+        Intent i = new Intent(this, ViolationsList.class);
+        i.putExtra("val", name);
+        startActivity(i);
     }
 
     private void search(View view) {
