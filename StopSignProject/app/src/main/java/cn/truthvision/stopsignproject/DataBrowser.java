@@ -121,10 +121,10 @@ public class DataBrowser extends Activity implements OnMapReadyCallback {
                             int b = Integer.parseInt(cursor.getString(4));
                             int c = Integer.parseInt(cursor.getString(5));
                             int d = Integer.parseInt(cursor.getString(6));
-                            System.out.println(cursor.getString(7));
+                            //System.out.println(cursor.getString(7));
                             int e = Integer.parseInt(cursor.getString(7));
                             Violation addedViolation = new Violation(a, b, c, d, e);
-                            System.out.println(addedViolation.toString());
+                            //System.out.println(addedViolation.toString());
                             temp.add(addedViolation);
                             found = x;
                             break;

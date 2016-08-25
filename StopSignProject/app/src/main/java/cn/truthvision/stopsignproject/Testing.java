@@ -95,12 +95,10 @@ public class Testing extends Activity {
 
         long random = 1000 + r.nextInt(86400000 - 1000 + 1);
         Violation test = new Violation(new Time(random), 1, 20, 33, 1);
-        System.out.println(test);
         violations.add(test);
 
         long random2 = 1000 + r2.nextInt(86400000 - 1000 + 1);
         Violation test2 = new Violation(new Time(random2), 11, 11, 11, 3);
-        System.out.println(test2.getDescval());
         violations.add(test2);
 
         SecureRandom randname = new SecureRandom();
@@ -113,7 +111,6 @@ public class Testing extends Activity {
         dbh.addVideo(vid);
         dbv.addEntry(vid, test);
         dbv.addEntry(vid, test2);
-        System.out.println("added test entry");
 
     }
 }

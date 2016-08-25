@@ -58,8 +58,6 @@ public class DBHandlerViolation extends SQLiteOpenHelper {
         values.put(COLUMN_FILENAME, video.getFileName());
         values.put(COLUMN_URI, video.getURI());
         values.put(COLUMN_TIME, v.getTime().getTime());
-        System.out.println(v.getTime());
-        System.out.println(v.getTime().getTime());
         long time = Time.valueOf(v.getVidTime()).getTime();
         int hr = v.getHour(); //((int) time)/3600;
         int min = v.getMin(); //(((int) time)%3600)/60;
@@ -72,7 +70,6 @@ public class DBHandlerViolation extends SQLiteOpenHelper {
         values.put(COLUMN_MIN, min);
         values.put(COLUMN_SEC, sec);
         values.put(COLUMN_DESC, v.getDescval());
-        System.out.println(v.getDescval());
 
         //values.put(COLUMN_LAT, video.getLat());
         //values.put(COLUMN_LNG, video.getLng());
