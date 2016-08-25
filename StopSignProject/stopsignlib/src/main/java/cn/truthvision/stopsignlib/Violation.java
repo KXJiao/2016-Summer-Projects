@@ -6,7 +6,7 @@ import java.sql.Time;
  * Created by TV_Laptop_01 on 8/9/2016.
  */
 public class Violation {
-    private Time time;
+    private Time time; // Time is just the time of the day that the Violation is.
     private int hour;
     private int min;
     private int sec;
@@ -28,6 +28,7 @@ public class Violation {
         this.min = vidMin;
         this.sec = vidSec;
         this.desc = findDesc(descval);
+        this.descval = descval;
     }
 
     private String findDesc(int descval) {
@@ -36,12 +37,16 @@ public class Violation {
             case 1: return "Did not stop, no attempt to stop";
             case 2: return "Did not stop, attempt to stop";
             case 3: return "Did not stop fully";
-            case 4: return "akfjladsjfal '); DROP TABLE Videos; --";
+            case 4: return "akfjladsjfal '); DROP TABLE Videos; --"; //  https://xkcd.com/327/
             default: return "Other violation (possible error)";
         }
     }
     public String getDesc(){
         return desc;
+    }
+
+    public int getDescval(){
+        return descval;
     }
 
     public void setDesc(int val){
@@ -60,6 +65,18 @@ public class Violation {
 
     public String getVidTime(){
         return hour + ":" + min + ":" + sec;
+    }
+
+    public int getHour(){
+        return hour;
+    }
+
+    public int getMin(){
+        return min;
+    }
+
+    public int getSec(){
+        return sec;
     }
 
     public void setVidTime(int hour, int min, int sec){

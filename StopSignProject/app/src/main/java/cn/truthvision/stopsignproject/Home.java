@@ -40,9 +40,20 @@ public class Home extends Activity {
             }
         });
 
+        Button test = (Button) findViewById(R.id.test);
+        test.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                openTest(v);
+            }
+        });
+
 
     }
 
+    private void openTest(View v) {
+        Intent i = new Intent(this, Testing.class);
+        startActivity(i);
+    }
 
 
     private void openVideo(View v) {

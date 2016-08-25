@@ -56,7 +56,7 @@ import cn.truthvision.stopsignlib.VideoInfo;
 import cn.truthvision.stopsignlib.Violation;
 
 
-public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
+public class AutoRecording extends Activity implements SurfaceHolder.Callback, CameraBridgeViewBase.CvCameraViewListener2 {
 
 
     private Uri fileUri;
@@ -64,8 +64,7 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
     private int SaveOptions = 1;
     private int DBOptions = 1;
 
-    cn.truthvision.stopsignproject.CameraView view;
-
+    private Mat mRgba, mGray;
     private VideoCapture Camera;
     String uri;
     String filename;
@@ -78,7 +77,6 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
     Button stopper;
 
     private VideoCapture mCamera;
-    private Mat oldest, newest, rgba;
     private Date date;
     private ArrayList<VideoInfo> snips;
 
@@ -92,14 +90,7 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
                     Log.i("StopSignProject", "OpenCV Loaded Successfully");
                     //setContentView(R.layout.activity_recording2);
 
-                    mCamera = new VideoCapture(Highgui.CV_CAP_ANDROID_GREY_FRAME);
-                    if (mCamera.isOpened())
-                        Log.i("StopSignProject","Camera is open");
-                    else
-                        Log.i("StopSignProject","Camera is not open");
-                    oldest = new Mat();
-                    newest = new Mat();
-                    rgba = new Mat();
+                    cameraView.enableView();
                     break;
                 }
                 default:{
@@ -138,7 +129,8 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
         recorder = new MediaRecorder();
         initRecorder();
 
-        SurfaceView cameraView = (SurfaceView) findViewById(R.id.CameraView);
+        cameraView = (CameraBridgeViewBase) findViewById(R.id.CameraView);
+        cameraView.setCvCameraViewListener(this);
         holder = cameraView.getHolder();
         holder.addCallback(this);
         holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
@@ -154,9 +146,9 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
     @Override
     public void onResume(){
         super.onResume();
-        //OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_8, this, mLoaderCallback);
+        OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_8, this, mLoaderCallback);
     }
-   public void run() throws IOException{
+    public void run() throws IOException{
         while (true) {
             //Bitmap bmp = null;
             //Mat rgba = new Mat();
@@ -174,7 +166,7 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
                 //2. get the current timestamp
                 //maybe access system time
 
-                mCamera.retrieve(rgba, Highgui.CV_CAP_ANDROID_COLOR_FRAME_RGBA);
+                //mCamera.retrieve(rgba, Highgui.CV_CAP_ANDROID_COLOR_FRAME_RGBA);
                 Calendar c = Calendar.getInstance();
                 int seconds = c.get(Calendar.SECOND);
                 int minutes = c.get(Calendar.MINUTE);
@@ -209,7 +201,6 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
                     canvas.drawBitmap(bmp, (canvas.getWidth()  - bmp.getWidth())  / 2,
                             (canvas.getHeight() - bmp.getHeight()) / 2, null);
                     getHolder().unlockCanvasAndPost(canvas);
-
                 }
                 bmp.recycle();
             }*/
@@ -229,34 +220,18 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
         else{
             FrameBuffer.add(mat);
         }
-
         return FrameBuffer.peek();
     }*/
 
-    private boolean detectFeature(Mat mat, Date date){
-
-        /*if(DateFormat.format("yyyy_MM_dd-HH:mm:ss", date) == "2016_08_09-10:15:00"){
-            return true;
-        }*/
-
-        if(mat.isContinuous())
-            return true;
-        return false;
-    }
-
-    private void saveFrame(Mat frame) throws IOException{
+    private void saveFrame(Mat frame){
 
         /*File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "StopSignVidStore");
         String filepath = mediaStorageDir.getPath();
         CharSequence timestamp = DateFormat.format("yyyy_MM_dd-HH:mm:ss", date);
-
         Bitmap bm = Bitmap.createBitmap(frame.cols(), frame.rows(), Bitmap.Config.ARGB_8888);
         Utils.matToBitmap(frame, bm);
-
         String fname = "Frame-" + timestamp;
-
         File file = new File(mediaStorageDir, fname);
-
         try{
             FileOutputStream out = new FileOutputStream(file);
             bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
@@ -266,24 +241,18 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
         catch(Exception e){
             e.printStackTrace();
         }*/
-        Bitmap bitmap = Bitmap.createBitmap(frame.cols(), frame.rows(), Bitmap.Config.ARGB_8888);
-        final Random random = new Random(1000);
-        ContextWrapper cw = new ContextWrapper(getApplicationContext());
-        File directory = cw.getDir("frameDir", Context.MODE_PRIVATE);
-        String timeStamp = new SimpleDateFormat("yyyy_MM_dd_HH-mm-ss").format(new Date());
-        File path = new File(directory, "frame" + timeStamp+".jpg");
-        FileOutputStream os = null;
-        try{
-            os = new FileOutputStream(path);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
-        }
-        catch(IOException e){
-            e.printStackTrace();
+
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "StopSignVidStore");
+        if(!mediaStorageDir.exists()){
+            if(!mediaStorageDir.mkdirs()){
+                Log.e("StopSignDetection", "Failed to create directory");
+            }
         }
 
-        finally{
-            os.close();
-        }
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File mediaFile = new File(mediaStorageDir.getPath()+File.separator+"StopSignFrame_"+timestamp+".png");
+        Log.w("StopSignDetection", "save image to" + mediaFile.toString());
+        Highgui.imwrite(mediaFile.toString(), frame);
 
     }
 
@@ -319,7 +288,7 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
 
         try {
             recorder.prepare();
-            run();
+            //();
             stopper.callOnClick();
         } catch (IllegalStateException e) {
             e.printStackTrace();
@@ -332,7 +301,7 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
 
     public void onClicker(View v) {
         if (recording) {
-            recorder.stop();
+            //recorder.stop();
             recording = false;
 
 
@@ -385,7 +354,7 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
 
         } else {
             recording = true;
-            recorder.start();
+            //recorder.start();
         }
     }
     private ArrayList<Violation> getViolations() {
@@ -398,15 +367,16 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
         for(int x = 0; x < snips.size(); x++){ // snips is list of Video snippets
             VideoInfo tempvid = snips.get(x);
             Cursor cursor = sql.rawQuery(query, null);
-            //ArrayList<Violation> temp = new ArrayList<>();
-           //for(int y = 0; y < tempvid.size(); y++){// traverses the list of violations in each snippet
-            //    violations.add(temp.get(y));
-            //}
+            /*ArrayList<Violation> temp = tempvid.getViolations();
+            for(int y = 0; y < tempvid.getViolations().size(); y++){// traverses the list of violations in each snippet
+                violations.add(temp.get(y));
+            }*/
+            cursor.close();
         }
         return violations;
     }
     public void surfaceCreated(SurfaceHolder holder) {
-        prepareRecorder();
+        //prepareRecorder();
     }
 
     public void surfaceChanged(SurfaceHolder holder, int format, int width,
@@ -422,83 +392,27 @@ public class AutoRecording extends Activity implements  SurfaceHolder.Callback{
         finish();
     }
 
-    public Mat getCurrentFrame(Bitmap bmp, VideoCapture videoCapture){
-        Mat frame = new Mat();
-        Utils.bitmapToMat(bmp, frame);
-        if(videoCapture.isOpened()){
-            //videoCapture.read(frame);
-            videoCapture.retrieve(frame, Highgui.CV_CAP_ANDROID_COLOR_FRAME_RGB);
-
+    public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame){
+        Mat rgba = inputFrame.rgba();
+        saveFrame(rgba);
+        return rgba;
+    }
+    public void onCameraViewStarted(int width, int height){
+        prepareRecorder();
+        mRgba = new Mat();
+        mGray = new Mat();
+    }
+    public void onCameraViewStopped(){
+        mRgba.release();
+        mGray.release();
+        if (recording) {
+            //recorder.stop();
+            recording = false;
         }
-        return frame;
+        recorder.release();
+        finish();
     }
 
-    public double getProperties(VideoCapture videoCapture){
-        return videoCapture.get(Highgui.CV_CAP_PROP_FRAME_HEIGHT);
-    }
-
-   /* public void run(){
-        while(true){
-            Bitmap bitmap = null;
-            synchronized(this){
-                if(Camera == null)
-                    break;
-                if(!Camera.grab())
-                    break;
-
-                bitmap = processFrame(Camera);
-            }
-            if(bitmap != null){
-                Canvas canvas = getHolder().lockCanvas();
-            }
-        }
-    }
-
-    public boolean cameraOpen(){
-        synchronized(this){
-            cameraRelease();
-            Camera = new VideoCapture(Highgui.CV_CAP_ANDROID);
-            if(!Camera.isOpened()){
-                Camera.release();
-                Camera = null;
-                Log.e("StopSignDetection", "Failed to Open Native Camera");
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public void cameraRelease(){
-        synchronized(this){
-            if(Camera != null){
-                Camera.release();
-                Camera = null;
-            }
-        }
-    }
-
-    private void cameraSetup(int width, int height){
-        synchronized(this){
-            if(Camera != null && Camera.isOpened()){
-                List<Size> sizes = Camera.getSupportedPreviewSizes();
-                int frameWidth = width;
-                int frameHeight = height;
-                {//selecting optimal camera preview size
-                    double minDiff = Double.MAX_VALUE;
-                    for(Size size: sizes){
-                        if(Math.abs(size.height-height) < minDiff){
-                            frameWidth = (int) size.width;
-                            frameHeight = (int) size.height;
-                            minDiff = Math.abs(size.height - height);
-                        }
-                    }
-                }
-                Camera.set(Highgui.CV_CAP_PROP_FRAME_WIDTH, frameWidth);
-                Camera.set(Highgui.CV_CAP_PROP_FRAME_HEIGHT, frameHeight);
-            }
-        }
-    }
-*/
 
 
 }

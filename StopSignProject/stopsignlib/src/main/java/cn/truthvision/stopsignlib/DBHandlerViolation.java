@@ -40,7 +40,7 @@ public class DBHandlerViolation extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_VIDEOS_TABLE = "CREATE TABLE " + TABLE_VIOLATIONS + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," + COLUMN_FILENAME + " TEXT," + COLUMN_URI + " TEXT" + COLUMN_TIME + " REAL," + COLUMN_HR + " INTEGER," + COLUMN_MIN + " INTEGER," + COLUMN_SEC + " INTEGER," + COLUMN_DESC + " INTEGER" +  ")";
+        String CREATE_VIDEOS_TABLE = "CREATE TABLE " + TABLE_VIOLATIONS + "(" + COLUMN_ID + " INTEGER PRIMARY KEY," + COLUMN_FILENAME + " TEXT," + COLUMN_URI + " TEXT," + COLUMN_TIME + " INTEGER," + COLUMN_HR + " INTEGER," + COLUMN_MIN + " INTEGER," + COLUMN_SEC + " INTEGER," + COLUMN_DESC + " INTEGER" +  ")";
         db.execSQL(CREATE_VIDEOS_TABLE);
         mDatabase = db;
     }
@@ -58,17 +58,21 @@ public class DBHandlerViolation extends SQLiteOpenHelper {
         values.put(COLUMN_FILENAME, video.getFileName());
         values.put(COLUMN_URI, video.getURI());
         values.put(COLUMN_TIME, v.getTime().getTime());
+        System.out.println(v.getTime());
+        System.out.println(v.getTime().getTime());
         long time = Time.valueOf(v.getVidTime()).getTime();
-        int hr = ((int) time)/3600;
-        int min = (((int) time)%3600)/60;
-        int sec = ((int) time)%60;
+        int hr = v.getHour(); //((int) time)/3600;
+        int min = v.getMin(); //(((int) time)%3600)/60;
+        int sec = v.getSec(); //((int) time)%60;
 
 
+        //System.out.println(time);
 
         values.put(COLUMN_HR, hr);
         values.put(COLUMN_MIN, min);
         values.put(COLUMN_SEC, sec);
-        values.put(COLUMN_DESC, v.getDesc());
+        values.put(COLUMN_DESC, v.getDescval());
+        System.out.println(v.getDescval());
 
         //values.put(COLUMN_LAT, video.getLat());
         //values.put(COLUMN_LNG, video.getLng());
@@ -184,7 +188,7 @@ public class DBHandlerViolation extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        return DatabaseUtils.longForQuery(db, "SELECT COUNT(*) FROM videos", null);
+        return DatabaseUtils.longForQuery(db, "SELECT COUNT(*) FROM violations", null);
     }
 
 }

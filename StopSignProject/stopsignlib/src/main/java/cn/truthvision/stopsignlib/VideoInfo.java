@@ -1,5 +1,8 @@
 package cn.truthvision.stopsignlib;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import java.net.URI;
@@ -9,7 +12,7 @@ import java.util.ArrayList;
 /**
  * Created by TV_Laptop_01 on 7/25/2016.
  */
-public class VideoInfo {
+public class VideoInfo{
 
     private int _id;
     private String _filename;
